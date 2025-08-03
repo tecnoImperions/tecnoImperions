@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Pamela</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle, #ffe6ea, #ffccd5);
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 400px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    h1 {
+      color: #d6336c;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #555;
+      font-size: 16px;
+      margin-top: 0;
+    }
+
+    .heart {
+      font-size: 50px;
+      color: #ff4d6d;
+      animation: beat 1s infinite;
+      margin: 20px 0;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+
+    .btn {
+      background-color: #ff4d6d;
+      color: white;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #e0415e;
+    }
+
+    .mensaje {
+      display: none;
+      margin-top: 25px;
+      font-size: 18px;
+      color: #333;
+      animation: reveal 0.6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes reveal {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Hola Pamela 😊</h1>
+    <p>Esto es solo un pequeño gesto de alguien que<br>se quedó pensando en ti...</p>
+    <div class="heart">❤️</div>
+    <button class="btn" onclick="mostrarMensaje()">Ver lo que pienso de ti</button>
+    <div class="mensaje" id="mensaje">
+      Hay algo en ti...<br>
+      que hace que quiera conocerte mucho más. 💬<br><br>
+      ¿Te gustaría?
+    </div>
+  </div>
+
+  <script>
+    function mostrarMensaje() {
+      document.getElementById("mensaje").style.display = "block";
+    }
+  </script>
+</body>
+</html>
