@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>VideoApp</title>
+<title>Varian</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="https://res.cloudinary.com/duwvw6q2c/image/upload/v1765742101/varian_lbd26r.webp" type="image/png">
 <link rel="apple-touch-icon" href="https://res.cloudinary.com/duwvw6q2c/image/upload/v1765742101/varian_lbd26r.webp" />
@@ -83,151 +83,6 @@ body.dark-mode {
   transform: scale(0.95);
 }
 
-/* ==================== BUSCADOR ==================== */
-#searchContainer {
-  position: relative;
-  max-width: 400px;
-  display: none;
-  margin: 0 15px;
-  animation: slideDown 0.3s ease;
-}
-
-#searchContainer.active { 
-  display: block; 
-}
-
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-#searchInput {
-  border-radius: 25px;
-  padding: 10px 20px 10px 45px;
-  width: 100%;
-  border: 2px solid rgba(255,255,255,0.3);
-  background: rgba(255,255,255,0.95);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transition: var(--transition);
-}
-
-#searchInput:focus {
-  outline: none;
-  border-color: rgba(255,255,255,0.8);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-}
-
-body.dark-mode #searchInput { 
-  background-color: #2d2d2d; 
-  border-color: #444; 
-  color: white; 
-}
-
-.search-icon { 
-  position: absolute; 
-  left: 18px; 
-  top: 50%; 
-  transform: translateY(-50%);
-  color: #777; 
-  pointer-events: none;
-}
-
-/* ==================== CONTROLES DE VISTA ==================== */
-.view-controls {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-}
-
-.view-btn {
-  padding: 8px 20px;
-  border: 2px solid #667eea;
-  background: white;
-  color: #667eea;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: var(--transition);
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.view-btn:hover {
-  background: #667eea;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-}
-
-.view-btn.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-color: transparent;
-}
-
-body.dark-mode .view-btn {
-  background: #1e1e1e;
-  border-color: #667eea;
-}
-
-body.dark-mode .view-btn.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-/* ==================== FILTROS ==================== */
-.filters-section {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  margin-bottom: 25px;
-  box-shadow: var(--card-shadow);
-}
-
-body.dark-mode .filters-section {
-  background: #1e1e1e;
-}
-
-.filter-chips {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 15px;
-}
-
-.filter-chip {
-  padding: 8px 18px;
-  border-radius: 20px;
-  background: #f0f0f0;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: var(--transition);
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.filter-chip:hover {
-  background: #e0e0e0;
-  transform: translateY(-2px);
-}
-
-.filter-chip.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-color: transparent;
-}
-
-body.dark-mode .filter-chip {
-  background: #2d2d2d;
-  color: #e0e0e0;
-}
-
-body.dark-mode .filter-chip:hover {
-  background: #3d3d3d;
-}
-
 /* ==================== TARJETAS ==================== */
 .video-grid {
   display: grid;
@@ -240,14 +95,90 @@ body.dark-mode .filter-chip:hover {
 }
 
 .video-grid.cols-2 {
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
-/* Floating TV button and compact list tweaks */
-.fab-tv{position:fixed;right:18px;bottom:18px;z-index:1050;border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:#0d6efd;color:#fff;border:none;box-shadow:0 6px 18px rgba(13,110,253,.25)}
-.video-grid.cols-1 .card{display:flex;gap:15px}
-.video-grid.cols-1 .card img{width:40%;height:auto;object-fit:cover}
-.video-grid.cols-1 .card-body{padding:12px}
+.video-grid.cols-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.video-grid.cols-list .card {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  min-height: 120px;
+}
+
+.video-grid.cols-list .card-img-container {
+  width: 180px;
+  min-width: 180px;
+  height: 120px;
+  border-radius: 15px 0 0 15px;
+}
+
+.video-grid.cols-list .card-body {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.video-grid.cols-list .card-title {
+  font-size: 1rem;
+  -webkit-line-clamp: 2;
+  margin-bottom: 8px;
+}
+
+.video-grid.cols-list .card-text {
+  font-size: 0.85rem;
+  -webkit-line-clamp: 2;
+  margin-bottom: 10px;
+}
+
+.video-grid.cols-list .genre {
+  font-size: 0.7rem;
+  padding: 3px 10px;
+}
+
+.video-grid.cols-list .music-indicator {
+  top: 10px;
+  right: 10px;
+  font-size: 0.7rem;
+  padding: 4px 10px;
+}
+
+.video-grid.cols-list .play-icon {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+}
+
+.video-grid.cols-list .card:hover {
+  transform: translateX(5px);
+}
+
+@media (max-width: 576px) {
+  .video-grid.cols-list .card-img-container {
+    width: 120px;
+    min-width: 120px;
+    height: 100px;
+  }
+  
+  .video-grid.cols-list .card-body {
+    padding: 10px;
+  }
+  
+  .video-grid.cols-list .card-title {
+    font-size: 0.9rem;
+  }
+  
+  .video-grid.cols-list .card-text {
+    font-size: 0.75rem;
+  }
+}
 
 .card {
   background: white;
@@ -390,7 +321,40 @@ body.dark-mode .card-text {
   box-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
 
-/* ==================== MODALES ==================== */
+/* ==================== MODALES DESDE ABAJO EN MÓVIL ==================== */
+@media (max-width: 767.98px) {
+  .modal.fade .modal-dialog {
+    transform: translate(0, 100%);
+    transition: transform 0.3s ease-out;
+  }
+  
+  .modal.show .modal-dialog {
+    transform: translate(0, 0);
+  }
+  
+  .modal-dialog {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    max-width: 100%;
+  }
+  
+  .modal-content {
+    border-radius: 20px 20px 0 0 !important;
+    max-height: 90vh;
+    overflow: auto;
+    border: none !important;
+  }
+  
+  .modal-dialog.modal-fullscreen-sm-down .modal-content {
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0 !important;
+  }
+}
+
 .modal-content {
   border-radius: 20px;
   border: none;
@@ -410,6 +374,16 @@ body.dark-mode .modal-content {
   border: none;
 }
 
+@media (max-width: 767.98px) {
+  .modal-header {
+    border-radius: 20px 20px 0 0 !important;
+  }
+  
+  .modal-fullscreen-sm-down .modal-header {
+    border-radius: 0 !important;
+  }
+}
+
 .modal-title {
   font-weight: 700;
   display: flex;
@@ -423,24 +397,6 @@ body.dark-mode .modal-content {
 
 .btn-close {
   filter: brightness(0) invert(1);
-}
-
-@media (max-width: 767.98px) {
-  .modal-dialog.modal-dialog-bottom {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0;
-    max-width: 100%;
-    transform: translateY(0) !important;
-  }
-  
-  .modal-dialog.modal-dialog-bottom .modal-content {
-    border-radius: 20px 20px 0 0;
-    max-height: 85vh;
-    overflow: auto;
-  }
 }
 
 /* ==================== BOTONES DE OPCIONES ==================== */
@@ -476,47 +432,6 @@ body.dark-mode .modal-content {
   background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
 }
 
-/* ==================== DROPDOWN ==================== */
-.dropdown-menu {
-  border-radius: 15px;
-  border: none;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  padding: 10px;
-  min-width: 250px;
-}
-
-body.dark-mode .dropdown-menu {
-  background-color: #2d2d2d;
-}
-
-.dropdown-item {
-  border-radius: 8px;
-  padding: 12px 15px;
-  margin: 3px 0;
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.dropdown-item:hover {
-  background-color: #f0f0f0;
-  transform: translateX(5px);
-}
-
-body.dark-mode .dropdown-item {
-  color: #fff;
-}
-
-body.dark-mode .dropdown-item:hover {
-  background-color: #3d3d3d;
-}
-
-.dropdown-divider {
-  margin: 10px 0;
-  opacity: 0.1;
-}
-
 /* ==================== FOOTER REPRODUCTOR ==================== */
 .music-footer {
   position: fixed;
@@ -524,7 +439,7 @@ body.dark-mode .dropdown-item:hover {
   left: 0;
   right: 0;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 15px 20px;
+  padding: 12px 15px;
   box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
   z-index: 999;
   transform: translateY(100%);
@@ -536,14 +451,10 @@ body.dark-mode .dropdown-item:hover {
   transform: translateY(0);
 }
 
-.music-footer:hover {
-  box-shadow: 0 -8px 30px rgba(0,0,0,0.3);
-}
-
 .music-footer-content {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -564,89 +475,40 @@ body.dark-mode .dropdown-item:hover {
 .music-footer-title {
   color: white;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.music-footer-artist {
+.music-footer-time {
   color: rgba(255,255,255,0.8);
-  font-size: 0.8rem;
-  margin: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 0.75rem;
+  margin: 2px 0 0 0;
 }
 
-.music-footer-icon {
+.music-footer-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.music-footer-controls button {
+  background: rgba(255,255,255,0.2);
+  border: none;
   color: white;
-  font-size: 1.5rem;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-/* ==================== NAVEGADOR DE CATEGORÍAS ==================== */
-.categories-nav {
-  background: white;
-  padding: 15px;
-  border-radius: 15px;
-  margin-bottom: 20px;
-  box-shadow: var(--card-shadow);
-  overflow-x: auto;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-}
-
-body.dark-mode .categories-nav {
-  background: #1e1e1e;
-}
-
-.categories-nav::-webkit-scrollbar {
-  height: 6px;
-}
-
-.categories-nav::-webkit-scrollbar-track {
-  background: #f0f0f0;
-  border-radius: 10px;
-}
-
-.categories-nav::-webkit-scrollbar-thumb {
-  background: #667eea;
-  border-radius: 10px;
-}
-
-.category-item {
-  display: inline-block;
-  padding: 10px 20px;
-  margin-right: 10px;
-  border-radius: 25px;
-  background: #f0f0f0;
-  color: #333;
-  text-decoration: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: var(--transition);
-  font-weight: 500;
 }
 
-.category-item:hover {
-  background: #667eea;
-  color: white;
-  transform: translateY(-2px);
-}
-
-.category-item.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-}
-
-body.dark-mode .category-item {
-  background: #2d2d2d;
-  color: #e0e0e0;
+.music-footer-controls button:hover {
+  background: rgba(255,255,255,0.3);
 }
 
 /* ==================== LOADER ==================== */
@@ -683,19 +545,6 @@ body.dark-mode .category-item {
   .video-grid.cols-2 {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
-  
-  .view-controls {
-    justify-content: center;
-  }
-  
-  .music-footer-content {
-    gap: 10px;
-  }
-  
-  .music-footer-thumbnail {
-    width: 45px;
-    height: 45px;
-  }
 }
 
 @media (max-width: 576px) {
@@ -709,10 +558,6 @@ body.dark-mode .category-item {
   
   .card-img-container {
     height: 180px;
-  }
-  
-  .filter-chips {
-    justify-content: center;
   }
 }
 
@@ -753,102 +598,18 @@ body.dark-mode .category-item {
       <button id="toggleSearch" title="Buscar" aria-label="Buscar">
         <i class="bi bi-search"></i>
       </button>
-      <button id="toggleCategories" title="Categorías" aria-label="Categorías" data-bs-toggle="modal" data-bs-target="#categoriesModal">
-        <i class="bi bi-grid-3x3-gap-fill"></i>
+      <button id="toggleView" title="Cambiar vista" aria-label="Cambiar vista">
+        <i class="bi bi-grid-3x3-gap-fill" id="viewIcon"></i>
       </button>
       <button id="toggleDark" title="Modo oscuro" aria-label="Modo oscuro">
         <i class="bi bi-moon-stars"></i>
       </button>
-    </div>
-
-    <!-- BOTON HAMBURGUESA -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="color: white; border-color: rgba(255,255,255,0.3);">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- CONTENIDO COLLAPSIBLE -->
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <!-- BUSCADOR -->
-      <div id="searchContainer">
-        <span class="search-icon"><i class="bi bi-search"></i></span>
-        <input id="searchInput" class="form-control" type="search" placeholder="Buscar videos o música..." aria-label="Buscar">
-      </div>
-
-      <!-- OPCIONES DROPDOWN -->
-      <div class="btn-group ms-2">
-        <button class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-sliders"></i> Opciones
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li>
-            <div class="dropdown-item">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="audioOnly">
-                <label class="form-check-label" for="audioOnly">
-                  <i class="bi bi-music-note"></i> Solo audio
-                </label>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="dropdown-item">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="videoOnly">
-                <label class="form-check-label" for="videoOnly">
-                  <i class="bi bi-camera-video"></i> Solo video
-                </label>
-              </div>
-            </div>
-          </li>
-          <li><hr class="dropdown-divider"></li>
-          <li>
-            <a class="dropdown-item" href="#" id="clearFilters">
-              <i class="bi bi-x-circle"></i> Limpiar filtros
-            </a>
-          </li>
-          <li><hr class="dropdown-divider"></li>
-          <li>
-            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#helpModal">
-              <i class="bi bi-question-circle"></i> Ayuda
-            </a>
-          </li>
-        </ul>
-      </div>
     </div>
   </div>
 </nav>
 
 <!-- CONTENEDOR PRINCIPAL -->
 <div class="container mt-4">
-  <!-- NAVEGADOR DE CATEGORÍAS -->
-  <div class="categories-nav">
-    <a href="#" class="category-item active" data-category="all">
-      <i class="bi bi-grid-fill"></i> Todos
-    </a>
-    <a href="#" class="category-item" data-category="Acción">
-      <i class="bi bi-lightning-charge-fill"></i> Acción
-    </a>
-    <a href="#" class="category-item" data-category="Comedia">
-      <i class="bi bi-emoji-smile-fill"></i> Comedia
-    </a>
-    <a href="#" class="category-item" data-category="Drama">
-      <i class="bi bi-film"></i> Drama
-    </a>
-    <a href="#" class="category-item" data-category="Música">
-      <i class="bi bi-music-note-beamed"></i> Música
-    </a>
-  </div>
-
-  <!-- CONTROLES DE VISTA -->
-  <div class="view-controls">
-    <button class="view-btn" id="viewOne">
-      <i class="bi bi-list"></i> Lista
-    </button>
-    <button class="view-btn active" id="viewTwo">
-      <i class="bi bi-grid"></i> Cuadrícula
-    </button>
-  </div>
-
   <!-- LOADER -->
   <div class="loader" id="loader">
     <div class="spinner"></div>
@@ -872,58 +633,44 @@ body.dark-mode .category-item {
     <img src="" alt="" class="music-footer-thumbnail" id="footerThumbnail">
     <div class="music-footer-info">
       <p class="music-footer-title" id="footerTitle">Reproduciendo...</p>
-      <p class="music-footer-artist" id="footerArtist">Música</p>
+      <p class="music-footer-time" id="footerTime">0:00 / 0:00</p>
     </div>
-    <div class="music-footer-icon">
-      <i class="bi bi-music-note-beamed"></i>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL AYUDA -->
-<div class="modal fade" id="helpModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"><i class="bi bi-info-circle-fill"></i> Ayuda</h5>
-        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <h6><i class="bi bi-play-circle"></i> Reproducción</h6>
-        <p>Selecciona cualquier video para ver las opciones de reproducción. Podrás elegir entre ver el video completo o solo escuchar la música.</p>
-        
-        <h6 class="mt-3"><i class="bi bi-search"></i> Búsqueda</h6>
-        <p>Usa el icono de búsqueda para encontrar videos por título, descripción o género.</p>
-        
-        <h6 class="mt-3"><i class="bi bi-funnel"></i> Filtros</h6>
-        <p>Filtra el contenido por categorías o usa las opciones para mostrar solo audio o solo videos.</p>
-        
-        <h6 class="mt-3"><i class="bi bi-layout-three-columns"></i> Vista</h6>
-        <p>Cambia entre vista de lista (1 columna) o cuadrícula (2 columnas) según tu preferencia.</p>
-        
-        <h6 class="mt-3"><i class="bi bi-music-note-beamed"></i> Reproductor flotante</h6>
-        <p>Cuando reproduzcas música, aparecerá un reproductor en la parte inferior. Toca en él para volver al reproductor completo.</p>
-      </div>
+    <div class="music-footer-controls">
+      <button id="footerPrev" title="Anterior"><i class="bi bi-skip-start-fill"></i></button>
+      <button id="footerPlay" title="Reproducir/Pausar"><i class="bi bi-play-fill" id="footerPlayIcon"></i></button>
+      <button id="footerNext" title="Siguiente"><i class="bi bi-skip-end-fill"></i></button>
     </div>
   </div>
 </div>
 
-<!-- MODAL BÚSQUEDA (TIENDA) -->
-<div class="modal fade" id="searchModal">
-  <div class="modal-dialog modal-dialog-centered">
+<!-- Audio de fondo -->
+<audio id="backgroundAudio" preload="metadata"></audio>
+
+<!-- MODAL BÚSQUEDA -->
+<div class="modal fade" id="searchModal" tabindex="-1">
+  <div class="modal-dialog modal-fullscreen-sm-down">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"><i class="bi bi-search"></i> Buscar productos</h5>
+        <h5 class="modal-title"><i class="bi bi-search"></i> Buscar Música</h5>
         <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="mb-3">
-          <input id="searchModalInput" class="form-control" type="search" placeholder="Buscar por título, descripción o género..." aria-label="Buscar">
+          <input id="searchModalInput" class="form-control" type="search" placeholder="Buscar música por título o autor..." aria-label="Buscar">
         </div>
-        <div class="d-flex gap-2 mb-3">
-          <button id="filterAll" class="btn btn-outline-secondary btn-sm">Todos</button>
-          <button id="filterVideos" class="btn btn-outline-secondary btn-sm">Videos</button>
-          <button id="filterMusica" class="btn btn-outline-secondary btn-sm">Música</button>
+
+        <!-- FILTROS DENTRO DEL MODAL -->
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <select id="genreFilterModal" class="form-select form-select-sm">
+              <option value="all">Todos los géneros</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <select id="authorFilterModal" class="form-select form-select-sm">
+              <option value="all">Todos los autores</option>
+            </select>
+          </div>
         </div>
 
         <div id="searchResults" class="list-group"></div>
@@ -936,26 +683,9 @@ body.dark-mode .category-item {
   </div>
 </div>
 
-<!-- MODAL CATEGORÍAS -->
-<div class="modal fade" id="categoriesModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"><i class="bi bi-grid-3x3-gap-fill"></i> Categorías</h5>
-        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="d-grid gap-2" id="categoriesList">
-          <!-- Las categorías se cargarán aquí -->
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- MODAL OPCIONES REPRODUCCIÓN -->
-<div class="modal fade" id="optionsModal">
-  <div class="modal-dialog modal-dialog-bottom modal-dialog-centered">
+<div class="modal fade" id="optionsModal" tabindex="-1">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="optionsTitle">
@@ -976,7 +706,6 @@ body.dark-mode .category-item {
 // ==================== VARIABLES GLOBALES ====================
 let todosLosVideos = [];
 let videosFiltrados = [];
-let categoriaActual = 'all';
 let vistaActual = 'cols-2';
 
 // ==================== CARGAR DATOS ====================
@@ -993,9 +722,13 @@ function cargarVideos() {
     .then(res => res.json())
     .then(data => {
       todosLosVideos = data;
-      videosFiltrados = data;
-      renderizarVideos(data);
-      cargarCategorias(data);
+      
+      // Ordenar aleatoriamente
+      todosLosVideos = todosLosVideos.sort(() => Math.random() - 0.5);
+      
+      videosFiltrados = todosLosVideos.filter(v => v.musicas);
+      renderizarVideos(videosFiltrados);
+      cargarFiltrosModal(todosLosVideos);
       $('#loader').removeClass('active');
     })
     .catch(error => {
@@ -1018,6 +751,25 @@ function mostrarError() {
   `);
 }
 
+// ==================== CARGAR FILTROS DEL MODAL ====================
+function cargarFiltrosModal(videos) {
+  const musicVideos = videos.filter(v => v.musicas);
+  
+  // Géneros
+  const generos = [...new Set(musicVideos.map(v => v.genero).filter(g => g))];
+  const genreFilter = $('#genreFilterModal');
+  generos.forEach(genero => {
+    genreFilter.append(`<option value="${genero}">${genero}</option>`);
+  });
+  
+  // Autores
+  const autores = [...new Set(musicVideos.map(v => v.autor).filter(a => a))];
+  const authorFilter = $('#authorFilterModal');
+  autores.forEach(autor => {
+    authorFilter.append(`<option value="${autor}">${autor}</option>`);
+  });
+}
+
 // ==================== RENDERIZAR VIDEOS ====================
 function renderizarVideos(videos) {
   const contenedor = $('#listaVideos');
@@ -1031,30 +783,29 @@ function renderizarVideos(videos) {
   $('#noResults').hide();
 
   videos.forEach(v => {
-    const tieneMusica = v.musicas && v.musicas.length > 0;
-    const card = $(`
-      <div class="fade-in">
+    const card = $(
+      `<div class="fade-in">
         <div class="card shadow-sm" data-video='${JSON.stringify(v)}'>
           <div class="card-img-container">
             <img src="${v.thumbnail}" class="card-img-top" alt="${v.titulo}">
             <div class="card-overlay">
               <span class="text-white small">
-                <i class="bi bi-eye"></i> Ver ahora
+                <i class="bi bi-music-note-beamed"></i> Escuchar ahora
               </span>
             </div>
             <div class="play-icon">
               <i class="bi bi-play-fill"></i>
             </div>
-            ${tieneMusica ? '<div class="music-indicator"><i class="bi bi-music-note"></i> Música</div>' : ''}
+            <div class="music-indicator"><i class="bi bi-music-note"></i> Música</div>
           </div>
           <div class="card-body">
             <h5 class="card-title">${v.titulo}</h5>
-            <p class="card-text">${v.descripcion || 'Sin descripción'}</p>
+            <p class="card-text">${v.autor || 'Autor desconocido'}</p>
             <span class="genre">${v.genero || 'General'}</span>
           </div>
         </div>
-      </div>
-    `);
+      </div>`
+    );
 
     card.find('.card').on('click', function() {
       mostrarOpciones(v);
@@ -1070,210 +821,228 @@ function mostrarOpciones(video) {
   const optionsBody = $('#optionsBody');
   optionsBody.empty();
 
-  // Botón de Video
-  const btnVideo = $(`
-    <a href="play.html?id=${video.id}&tipo=video" class="option-btn btn-video">
-      <i class="bi bi-camera-video-fill"></i>
-      <span>Ver Video</span>
-    </a>
-  `);
-  optionsBody.append(btnVideo);
-
-  // Botón de Música (si existe)
-  if (video.musicas && video.musicas.length > 0) {
-    const btnMusic = $(`
-      <a href="play.html?id=${video.id}&tipo=musica" class="option-btn btn-music">
-        <i class="bi bi-music-note-beamed"></i>
-        <span>Escuchar Música</span>
+  // Botón de Video si existe
+  if (video.url) {
+    const btnVideo = $(`
+      <a href="play.html?id=${video.id}&tipo=video" class="option-btn btn-video">
+        <i class="bi bi-camera-video-fill"></i>
+        <span>Ver Video</span>
       </a>
     `);
+    optionsBody.append(btnVideo);
+  }
+
+  // Botón de Música
+  if (video.musicas) {
+    const btnMusic = $(`
+      <button class="option-btn btn-music">
+        <i class="bi bi-music-note-beamed"></i>
+        <span>Escuchar Música</span>
+      </button>
+    `);
     
-    // Guardar información para el footer
-    btnMusic.on('click', function(e) {
-      guardarReproduccionActual(video);
+    btnMusic.on('click', function() {
+      const currentTime = $('#backgroundAudio')[0].currentTime || 0;
+      const reproData = {
+        id: video.id,
+        titulo: video.titulo,
+        thumbnail: video.thumbnail,
+        autor: video.autor,
+        tipo: 'musica',
+        currentTime: currentTime
+      };
+      localStorage.setItem('currentPlaying', JSON.stringify(reproData));
+      window.location.href = `play.html?id=${video.id}&tipo=musica`;
     });
     
     optionsBody.append(btnMusic);
   }
 
-  // Mostrar modal
   const modal = new bootstrap.Modal(document.getElementById('optionsModal'));
   modal.show();
 }
 
 // ==================== FOOTER REPRODUCTOR ====================
-function guardarReproduccionActual(video) {
-  const reproData = {
-    id: video.id,
-    titulo: video.titulo,
-    thumbnail: video.thumbnail,
-    tipo: 'musica'
-  };
-  localStorage.setItem('currentPlaying', JSON.stringify(reproData));
+function mostrarFooterReproductor(data) {
+  $('#footerThumbnail').attr('src', data.thumbnail);
+  $('#footerTitle').text(data.titulo);
+  $('#musicFooter').addClass('active');
+  
+  const audio = $('#backgroundAudio')[0];
+  const video = todosLosVideos.find(v => String(v.id) === String(data.id));
+  if (video && video.musicas) {
+    const src = typeof video.musicas === 'string' ? video.musicas : video.musicas[0];
+    audio.src = src;
+    audio.load();
+    
+    if (data.currentTime) {
+      audio.currentTime = data.currentTime;
+    }
+    
+    audio.play().catch(()=>{});
+    updateFooterPlayState(true);
+  }
+}
+
+function updateFooterPlayState(playing) {
+  const ic = $('#footerPlayIcon');
+  if(ic) ic.attr('class', playing ? 'bi bi-pause-fill' : 'bi bi-play-fill');
+}
+
+function formatTime(seconds) {
+  if (isNaN(seconds)) return '0:00';
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+const audio = $('#backgroundAudio')[0];
+audio.addEventListener('timeupdate', function() {
+  if (!isNaN(audio.duration)) {
+    const currentTime = formatTime(audio.currentTime);
+    const duration = formatTime(audio.duration);
+    $('#footerTime').text(`${currentTime} / ${duration}`);
+    
+    const currentPlaying = localStorage.getItem('currentPlaying');
+    if (currentPlaying && Math.floor(audio.currentTime) % 2 === 0) {
+      const data = JSON.parse(currentPlaying);
+      data.currentTime = audio.currentTime;
+      localStorage.setItem('currentPlaying', JSON.stringify(data));
+    }
+  }
+});
+
+audio.addEventListener('ended', function() {
+  footerNext();
+});
+
+window.addEventListener('beforeunload', function() {
+  const currentPlaying = localStorage.getItem('currentPlaying');
+  if (currentPlaying && audio.src) {
+    const data = JSON.parse(currentPlaying);
+    data.currentTime = audio.currentTime;
+    localStorage.setItem('currentPlaying', JSON.stringify(data));
+  }
+});
+
+$('#footerPlay').on('click', function(e){
+  e.stopPropagation();
+  if(!audio.src) return;
+  if(audio.paused) { 
+    audio.play().catch(()=>{}); 
+    updateFooterPlayState(true);
+  } else { 
+    audio.pause(); 
+    updateFooterPlayState(false); 
+  }
+});
+
+$('#footerPrev').on('click', function(e){ 
+  e.stopPropagation(); 
+  footerPrev(); 
+});
+
+$('#footerNext').on('click', function(e){ 
+  e.stopPropagation(); 
+  footerNext(); 
+});
+
+$('#musicFooter').on('click', function(e) {
+  if ($(e.target).closest('button').length) return;
+  
+  const currentPlaying = localStorage.getItem('currentPlaying');
+  if (currentPlaying) {
+    const data = JSON.parse(currentPlaying);
+    data.currentTime = audio.currentTime;
+    localStorage.setItem('currentPlaying', JSON.stringify(data));
+    window.location.href = `play.html?id=${data.id}&tipo=musica`;
+  }
+});
+
+function footerNext(){
+  const current = localStorage.getItem('currentPlaying');
+  if(!current) return;
+  const data = JSON.parse(current);
+  const musicVideos = todosLosVideos.filter(v => v.musicas);
+  const idx = musicVideos.findIndex(v=>String(v.id)===String(data.id));
+  
+  const nextIdx = (idx + 1) % musicVideos.length;
+  const nextVideo = musicVideos[nextIdx];
+  if (nextVideo) {
+    const newData = {
+      id: nextVideo.id,
+      titulo: nextVideo.titulo,
+      thumbnail: nextVideo.thumbnail,
+      autor: nextVideo.autor,
+      tipo: 'musica',
+      currentTime: 0
+    };
+    localStorage.setItem('currentPlaying', JSON.stringify(newData));
+    mostrarFooterReproductor(newData);
+  }
+}
+
+function footerPrev(){
+  const current = localStorage.getItem('currentPlaying');
+  if(!current) return;
+  const data = JSON.parse(current);
+  const musicVideos = todosLosVideos.filter(v => v.musicas);
+  const idx = musicVideos.findIndex(v=>String(v.id)===String(data.id));
+  
+  const prevIdx = (idx - 1 + musicVideos.length) % musicVideos.length;
+  const prevVideo = musicVideos[prevIdx];
+  if (prevVideo) {
+    const newData = {
+      id: prevVideo.id,
+      titulo: prevVideo.titulo,
+      thumbnail: prevVideo.thumbnail,
+      autor: prevVideo.autor,
+      tipo: 'musica',
+      currentTime: 0
+    };
+    localStorage.setItem('currentPlaying', JSON.stringify(newData));
+    mostrarFooterReproductor(newData);
+  }
 }
 
 function verificarReproduccionActiva() {
   const currentPlaying = localStorage.getItem('currentPlaying');
-  if (currentPlaying) {
+  if (currentPlaying && todosLosVideos && todosLosVideos.length > 0) {
     const data = JSON.parse(currentPlaying);
     mostrarFooterReproductor(data);
   }
 }
 
-function mostrarFooterReproductor(data) {
-  $('#footerThumbnail').attr('src', data.thumbnail);
-  $('#footerTitle').text(data.titulo);
-  $('#footerArtist').text('Reproduciendo música');
-  $('#musicFooter').addClass('active');
-
-  $('#musicFooter').off('click').on('click', function() {
-    window.location.href = `play.html?id=${data.id}&tipo=${data.tipo}`;
-  });
-}
-
-// Verificar al cargar la página
 $(document).ready(function() {
-  verificarReproduccionActiva();
-});
-
-// ==================== CARGAR CATEGORÍAS ====================
-function cargarCategorias(videos) {
-  const generos = [...new Set(videos.map(v => v.genero).filter(g => g))];
-  const categoriesList = $('#categoriesList');
-  
-  categoriesList.empty();
-  
-  // Todos
-  categoriesList.append(`
-    <button class="option-btn btn-video" data-category="all">
-      <i class="bi bi-grid-fill"></i>
-      <span>Todos (${videos.length})</span>
-    </button>
-  `);
-
-  // Géneros dinámicos
-  generos.forEach(genero => {
-    const count = videos.filter(v => v.genero === genero).length;
-    const icon = obtenerIconoGenero(genero);
-    categoriesList.append(`
-      <button class="option-btn btn-music" data-category="${genero}">
-        <i class="bi bi-${icon}"></i>
-        <span>${genero} (${count})</span>
-      </button>
-    `);
-  });
-
-  // Solo con música
-  const conMusica = videos.filter(v => v.musicas && v.musicas.length > 0).length;
-  categoriesList.append(`
-    <button class="option-btn btn-video" data-category="musica">
-      <i class="bi bi-music-note-beamed"></i>
-      <span>Con Música (${conMusica})</span>
-    </button>
-  `);
-
-  // Event listeners
-  categoriesList.find('button').on('click', function() {
-    const category = $(this).data('category');
-    filtrarPorCategoria(category);
-    bootstrap.Modal.getInstance(document.getElementById('categoriesModal')).hide();
-  });
-}
-
-function obtenerIconoGenero(genero) {
-  const iconos = {
-    'Acción': 'lightning-charge-fill',
-    'Comedia': 'emoji-smile-fill',
-    'Drama': 'film',
-    'Música': 'music-note-beamed',
-    'Terror': 'moon-stars-fill',
-    'Ciencia Ficción': 'robot',
-    'Romance': 'heart-fill',
-    'Aventura': 'compass-fill'
-  };
-  return iconos[genero] || 'star-fill';
-}
-
-// ==================== FILTROS ====================
-function filtrarPorCategoria(categoria) {
-  categoriaActual = categoria;
-  
-  // Actualizar UI de categorías en navbar
-  $('.category-item').removeClass('active');
-  $(`.category-item[data-category="${categoria}"]`).addClass('active');
-
-  aplicarFiltros();
-}
-
-function aplicarFiltros() {
-  let resultado = [...todosLosVideos];
-
-  // Filtro por categoría
-  if (categoriaActual !== 'all') {
-    if (categoriaActual === 'musica') {
-      resultado = resultado.filter(v => v.musicas && v.musicas.length > 0);
-    } else {
-      resultado = resultado.filter(v => v.genero === categoriaActual);
-    }
-  }
-
-  // Filtro solo audio
-  if ($('#audioOnly').is(':checked')) {
-    resultado = resultado.filter(v => v.musicas && v.musicas.length > 0);
-  }
-
-  // Filtro solo video
-  if ($('#videoOnly').is(':checked')) {
-    resultado = resultado.filter(v => !v.musicas || v.musicas.length === 0);
-  }
-
-  // Filtro de búsqueda
-  const searchTerm = $('#searchInput').val().toLowerCase().trim();
-  if (searchTerm) {
-    resultado = resultado.filter(v => 
-      v.titulo.toLowerCase().includes(searchTerm) ||
-      (v.descripcion && v.descripcion.toLowerCase().includes(searchTerm)) ||
-      (v.genero && v.genero.toLowerCase().includes(searchTerm))
-    );
-  }
-
-  videosFiltrados = resultado;
-  renderizarVideos(resultado);
-}
-
-// ==================== BÚSQUEDA ====================
-let searchTimeout;
-$('#searchInput').on('input', function() {
-  clearTimeout(searchTimeout);
-  searchTimeout = setTimeout(() => {
-    aplicarFiltros();
-  }, 300);
+  setTimeout(verificarReproduccionActiva, 500);
 });
 
 // ==================== EVENTOS ====================
 function configurarEventos() {
-  // Toggle búsqueda
   $('#toggleSearch').on('click', function() {
     const modal = new bootstrap.Modal(document.getElementById('searchModal'));
     modal.show();
     setTimeout(() => $('#searchModalInput').focus(), 200);
   });
 
-  // Búsqueda en modal (estilo tienda)
-  let modalSearchMode = 'all'; // all | video | musica
   $('#searchModalInput').on('input', function() {
-    const term = $(this).val().toLowerCase().trim();
-    performModalSearch(term);
+    performModalSearch();
   });
 
-  $('#filterAll').on('click', function(){ modalSearchMode='all'; $('.btn-outline-secondary').removeClass('active'); $(this).addClass('active'); performModalSearch($('#searchModalInput').val()); });
-  $('#filterVideos').on('click', function(){ modalSearchMode='video'; $('.btn-outline-secondary').removeClass('active'); $(this).addClass('active'); performModalSearch($('#searchModalInput').val()); });
-  $('#filterMusica').on('click', function(){ modalSearchMode='musica'; $('.btn-outline-secondary').removeClass('active'); $(this).addClass('active'); performModalSearch($('#searchModalInput').val()); });
+  $('#genreFilterModal, #authorFilterModal').on('change', function() {
+    performModalSearch();
+  });
 
-  // usar Enter en modal para enfocar primer resultado
-  $('#searchModalInput').on('keydown', function(e){ if(e.key === 'Enter'){ const first = $('#searchResults .list-group-item').first(); if(first.length) first.find('a').first().focus(); } });
+  $('#toggleView').on('click', function() {
+    if (vistaActual === 'cols-2') {
+      cambiarVista('cols-1');
+    } else if (vistaActual === 'cols-1') {
+      cambiarVista('cols-list');
+    } else {
+      cambiarVista('cols-2');
+    }
+  });
 
-  // Toggle modo oscuro
   $('#toggleDark').on('click', function() {
     $('body').toggleClass('dark-mode');
     const icon = $(this).find('i');
@@ -1285,163 +1054,130 @@ function configurarEventos() {
       localStorage.setItem('darkMode', 'false');
     }
   });
-
-  // Keyboard shortcuts and TV FAB
-  $(document).on('keydown', function(e){
-    const key = (e.key || '').toLowerCase();
-    if(key === 'v'){
-      // toggle between list and grid
-      if($('#viewOne').hasClass('active')) $('#viewTwo').trigger('click'); else $('#viewOne').trigger('click');
-    }
-    if(key === 't'){
-      const tv = localStorage.getItem('tvMode') === '1';
-      localStorage.setItem('tvMode', tv? '0':'1');
-      // small feedback
-      const msg = 'Modo TV ' + (tv? 'desactivado':'activado');
-      try{ if(window.Toastify){ Toastify({text: msg,duration:1500}).showToast(); } else alert(msg); }catch(err){ alert(msg); }
-    }
-  });
-
-  // add floating TV button
-  if(!$('#fabTv').length){
-    $('body').append('<button id="fabTv" class="fab-tv" title="TV mode (T)"><i class="bi bi-tv-fill" style="font-size:1.1rem"></i></button>');
-    $('#fabTv').on('click', function(){ $('#fabTv').toggleClass('active'); const tv = localStorage.getItem('tvMode') === '1'; localStorage.setItem('tvMode', tv? '0':'1'); const msg = 'Modo TV ' + (tv? 'desactivado':'activado'); try{ if(window.Toastify){ Toastify({text: msg,duration:1500}).showToast(); } else alert(msg); }catch(err){ alert(msg); } });
-  }
-
-  // Cambiar vista
-  $('#viewOne').on('click', function() {
-    cambiarVista('cols-1', $(this));
-  });
-
-  $('#viewTwo').on('click', function() {
-    cambiarVista('cols-2', $(this));
-  });
-
-  // Filtros
-  $('#audioOnly, #videoOnly').on('change', function() {
-    aplicarFiltros();
-  });
-
-  // Limpiar filtros
-  $('#clearFilters').on('click', function(e) {
-    e.preventDefault();
-    $('#audioOnly, #videoOnly').prop('checked', false);
-    $('#searchInput').val('');
-    categoriaActual = 'all';
-    $('.category-item').removeClass('active');
-    $('.category-item[data-category="all"]').addClass('active');
-    aplicarFiltros();
-  });
-
-  // Navegación de categorías
-  $('.category-item').on('click', function(e) {
-    e.preventDefault();
-    const category = $(this).data('category');
-    filtrarPorCategoria(category);
-  });
 }
 
 // ======= FUNCIONES DE BÚSQUEDA MODAL =======
-function performModalSearch(term){
+function performModalSearch(){
+  const term = $('#searchModalInput').val().toLowerCase().trim();
+  const genreFilter = $('#genreFilterModal').val();
+  const authorFilter = $('#authorFilterModal').val();
+  
   const resultsContainer = $('#searchResults');
   resultsContainer.empty();
   $('#searchNoResults').hide();
 
-  if(!term) {
-    // mostrar primeros 20 productos por defecto
-    const items = todosLosVideos.slice(0,20);
-    renderModalResults(items);
-    return;
+  let musicVideos = todosLosVideos.filter(v => v.musicas);
+
+  // Filtrar por género
+  if (genreFilter !== 'all') {
+    musicVideos = musicVideos.filter(v => v.genero === genreFilter);
   }
 
-  const resultado = todosLosVideos.filter(v => {
-    const matchesText = (v.titulo && v.titulo.toLowerCase().includes(term)) || (v.descripcion && v.descripcion.toLowerCase().includes(term)) || (v.genero && v.genero.toLowerCase().includes(term));
-    if(!matchesText) return false;
-    if(modalSearchMode === 'video') return !!v.url;
-    if(modalSearchMode === 'musica') return !!(v.musicas && v.musicas.length > 0) || !!v.src;
-    return true;
-  });
+  // Filtrar por autor
+  if (authorFilter !== 'all') {
+    musicVideos = musicVideos.filter(v => v.autor === authorFilter);
+  }
 
-  if(resultado.length === 0){
+  // Filtrar por búsqueda
+  if(term) {
+    musicVideos = musicVideos.filter(v => {
+      return (v.titulo && v.titulo.toLowerCase().includes(term)) || 
+             (v.autor && v.autor.toLowerCase().includes(term)) ||
+             (v.genero && v.genero.toLowerCase().includes(term));
+    });
+  }
+
+  if(musicVideos.length === 0){
     $('#searchNoResults').show();
   } else {
-    renderModalResults(resultado);
+    renderModalResults(musicVideos.slice(0, 100));
   }
 }
 
 function renderModalResults(items){
   const resultsContainer = $('#searchResults');
   resultsContainer.empty();
-  items.slice(0,100).forEach(v => {
-    const hasMusic = v.musicas && v.musicas.length > 0 || v.src;
-    const hasVideo = !!v.url;
-    const badge = hasMusic && !hasVideo ? '<span class="badge bg-info ms-2">Música</span>' : (hasVideo && !hasMusic ? '<span class="badge bg-warning ms-2">Video</span>' : '<span class="badge bg-success ms-2">Combo</span>');
-    const item = $(
-      `<div class="list-group-item list-group-item-action d-flex align-items-center gap-3">
-         <img src="${v.thumbnail || ''}" alt="thumb" style="width:64px;height:48px;object-fit:cover;border-radius:6px;">
-         <div class="flex-grow-1">
-           <div class="d-flex justify-content-between align-items-start">
-             <div>
-               <div style="font-weight:600">${v.titulo}</div>
-               <small class="text-muted">${v.genero || ''} · ${(v.descripcion||'').slice(0,80)}</small>
-             </div>
-             <div>${badge}</div>
-           </div>
-           <div class="mt-2">
-             ${hasVideo ? `<a class="btn btn-sm btn-outline-primary me-2" href="play.html?id=${v.id}&tipo=video">Ver</a>` : ''}
-             ${hasMusic ? `<a class="btn btn-sm btn-outline-success" href="play.html?id=${v.id}&tipo=musica">Escuchar</a>` : ''}
-           </div>
-         </div>
-       </div>`
-    );
+  
+  items.forEach(v => {
+    const item = $(`<div class="list-group-item list-group-item-action d-flex align-items-center gap-3"></div>`);
+    const thumb = $(`<img src="${v.thumbnail || ''}" alt="thumb" style="width:64px;height:48px;object-fit:cover;border-radius:6px;">`);
+    const body = $(`<div class="flex-grow-1"></div>`);
+    const top = $(`<div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <div style="font-weight:600">${v.titulo}</div>
+                      <small class="text-muted">${v.autor || 'Autor desconocido'} · ${v.genero || ''}</small>
+                    </div>
+                    <span class="badge bg-info">Música</span>
+                  </div>`);
+    const actions = $('<div class="mt-2 d-flex gap-2"></div>');
+    
+    if(v.url) {
+      const btnVer = $(`<a class="btn btn-sm btn-outline-primary" href="play.html?id=${v.id}&tipo=video">Ver</a>`);
+      actions.append(btnVer);
+    }
+    
+    const btnPlay = $(`<button class="btn btn-sm btn-outline-success">Escuchar</button>`);
+    btnPlay.on('click', function(){ 
+      const currentTime = $('#backgroundAudio')[0].currentTime || 0;
+      const reproData = {
+        id: v.id,
+        titulo: v.titulo,
+        thumbnail: v.thumbnail,
+        autor: v.autor,
+        tipo: 'musica',
+        currentTime: currentTime
+      };
+      localStorage.setItem('currentPlaying', JSON.stringify(reproData));
+      bootstrap.Modal.getInstance(document.getElementById('searchModal')).hide();
+      window.location.href = `play.html?id=${v.id}&tipo=musica`;
+    });
+    actions.append(btnPlay);
+    
+    body.append(top).append(actions);
+    item.append(thumb).append(body);
     resultsContainer.append(item);
   });
 }
 
-function cambiarVista(vista, btn) {
+function cambiarVista(vista) {
   vistaActual = vista;
-  $('#listaVideos').removeClass('cols-1 cols-2').addClass(vista);
-  $('.view-btn').removeClass('active');
-  btn.addClass('active');
+  $('#listaVideos').removeClass('cols-1 cols-2 cols-list').addClass(vista);
+  
+  const viewIcon = $('#viewIcon');
+  if (vista === 'cols-2') {
+    viewIcon.removeClass().addClass('bi bi-grid-3x3-gap-fill');
+  } else if (vista === 'cols-1') {
+    viewIcon.removeClass().addClass('bi bi-grid');
+  } else {
+    viewIcon.removeClass().addClass('bi bi-list-ul');
+  }
+  
   localStorage.setItem('viewMode', vista);
+  renderizarVideos(videosFiltrados);
 }
 
 // ==================== PREFERENCIAS USUARIO ====================
 function cargarPreferenciasUsuario() {
-  // Modo oscuro
   const darkMode = localStorage.getItem('darkMode');
   if (darkMode === 'true') {
     $('body').addClass('dark-mode');
     $('#toggleDark i').removeClass('bi-moon-stars').addClass('bi-sun-fill');
   }
 
-  // Vista
   const viewMode = localStorage.getItem('viewMode');
   if (viewMode) {
     vistaActual = viewMode;
-    $('#listaVideos').removeClass('cols-1 cols-2').addClass(viewMode);
-    $('.view-btn').removeClass('active');
-    if (viewMode === 'cols-1') {
-      $('#viewOne').addClass('active');
+    $('#listaVideos').removeClass('cols-1 cols-2 cols-list').addClass(viewMode);
+    const viewIcon = $('#viewIcon');
+    if (viewMode === 'cols-2') {
+      viewIcon.removeClass().addClass('bi bi-grid-3x3-gap-fill');
+    } else if (viewMode === 'cols-1') {
+      viewIcon.removeClass().addClass('bi bi-grid');
     } else {
-      $('#viewTwo').addClass('active');
+      viewIcon.removeClass().addClass('bi bi-list-ul');
     }
   }
 }
-
-// ==================== SMOOTH SCROLL ====================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    const href = this.getAttribute('href');
-    if (href !== '#') {
-      e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  });
-});
 </script>
 </body>
 </html>
