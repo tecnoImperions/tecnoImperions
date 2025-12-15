@@ -18,6 +18,37 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
 }
 
+/* Botón flotante para volver */
+.floating-home-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: all 0.3s ease;
+  z-index: 9999;
+}
+
+.floating-home-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  background: #f0f0f0;
+}
+
+.floating-home-btn:active {
+  transform: translateY(-2px);
+}
+
 /* Estilo YouTube para videos */
 .video-container {
   background: #000;
@@ -29,7 +60,7 @@ body {
 .video-wrapper {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 */
+  padding-bottom: 56.25%;
   background: #000;
 }
 
@@ -73,13 +104,132 @@ body {
   font-size: 14px;
   line-height: 1.6;
   white-space: pre-wrap;
+  margin-bottom: 15px;
+}
+
+/* Contenedor de botones con scroll horizontal */
+.action-buttons-scroll {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .action-buttons {
   display: flex;
   gap: 10px;
-  margin-top: 15px;
-  flex-wrap: wrap;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #3a3a3a #1a1a1a;
+}
+
+.action-buttons::-webkit-scrollbar {
+  height: 6px;
+}
+
+.action-buttons::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 10px;
+}
+
+.action-buttons::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 10px;
+}
+
+.action-buttons::-webkit-scrollbar-thumb:hover {
+  background: #4a4a4a;
+}
+
+/* Sección "A continuación" estilo YouTube */
+.up-next-section {
+  max-width: 1280px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.up-next-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 80px;
+}
+
+.video-card {
+  background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.video-card:hover {
+  background: #2a2a2a;
+  transform: translateY(-4px);
+}
+
+.video-card-thumbnail {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  background: #000;
+}
+
+.video-card-info {
+  padding: 12px;
+}
+
+.video-card-title {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.video-card-genre {
+  font-size: 12px;
+  color: #aaa;
+  margin: 0;
+}
+
+.video-card-badges {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.badge-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.badge-video {
+  background: rgba(255, 59, 48, 0.2);
+  color: #ff3b30;
+}
+
+.badge-music {
+  background: rgba(52, 199, 89, 0.2);
+  color: #34c759;
 }
 
 /* Reproductor MP3 */
@@ -273,38 +423,12 @@ body {
   background: #e0e0e0;
 }
 
-.control-btn[data-tooltip]:hover::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 120%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 6px 10px;
-  background: #3a3a3a;
-  color: #fff;
-  font-size: 12px;
-  border-radius: 6px;
-  white-space: nowrap;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.control-btn[data-tooltip]:hover::after {
-  content: '';
-  position: absolute;
-  bottom: 105%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 5px solid transparent;
-  border-top-color: #3a3a3a;
-  pointer-events: none;
-}
-
 .mode-controls {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .mode-btn {
@@ -328,9 +452,9 @@ body {
 }
 
 .mode-btn.active {
-  background: #fff;
-  color: #000;
-  border-color: #fff;
+  background: #8b5cf6;
+  color: #fff;
+  border-color: #8b5cf6;
 }
 
 .volume-section {
@@ -383,7 +507,7 @@ body {
   text-align: right;
 }
 
-/* Botones de acción */
+/* Botones personalizados */
 .btn-custom {
   padding: 10px 20px;
   border-radius: 20px;
@@ -394,6 +518,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  white-space: nowrap;
+  font-size: 14px;
 }
 
 .btn-back {
@@ -406,15 +532,92 @@ body {
 }
 
 .btn-switch {
-  background: #fff;
-  color: #000;
+  background: #34c759;
+  color: #fff;
 }
 
 .btn-switch:hover {
-  background: #e0e0e0;
+  background: #2db04c;
 }
 
-/* Mini Player Footer - Solo para index.html */
+.btn-nav {
+  background: #34c759;
+  color: #fff;
+}
+
+.btn-nav:hover {
+  background: #2db04c;
+}
+
+.btn-share {
+  background: #007aff;
+  color: #fff;
+}
+
+.btn-share:hover {
+  background: #0062cc;
+}
+
+.btn-download {
+  background: #ff9500;
+  color: #fff;
+}
+
+.btn-download:hover {
+  background: #e68600;
+}
+
+.btn-like {
+  background: #ff3b30;
+  color: #fff;
+}
+
+.btn-like:hover {
+  background: #e6332a;
+}
+
+.btn-playlist {
+  background: #5856d6;
+  color: #fff;
+}
+
+.btn-playlist:hover {
+  background: #4745c0;
+}
+
+/* Toast de notificación */
+.toast-notification {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2a2a2a;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  gap: 10px;
+  animation: slideUp 0.3s ease;
+}
+
+.toast-notification.show {
+  display: flex;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateX(-50%) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
 .mini-player {
   position: fixed;
   bottom: 0;
@@ -527,10 +730,37 @@ body {
   .mini-info {
     max-width: 150px;
   }
+  
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .floating-home-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+  
+  .action-buttons {
+    padding-right: 20px;
+  }
 }
 </style>
 </head>
 <body>
+
+<!-- Toast de notificación -->
+<div class="toast-notification" id="toastNotification">
+  <i class="bi bi-check-circle-fill" style="font-size: 20px; color: #34c759;"></i>
+  <span id="toastMessage">Enlace copiado</span>
+</div>
+
+<!-- Botón flotante para volver a index.html -->
+<button class="floating-home-btn" onclick="goToHome()" title="Volver al inicio">
+  <i class="bi bi-house-fill"></i>
+</button>
 
 <!-- Contenedor para video -->
 <div id="videoContainer" style="display:none;">
@@ -544,15 +774,56 @@ body {
         <span><i class="bi bi-tag"></i> <span id="videoGenre"></span></span>
       </div>
       <div class="video-description" id="videoDescription"></div>
-      <div class="action-buttons">
-        <button class="btn-custom btn-back" onclick="history.back()">
-          <i class="bi bi-arrow-left"></i> Volver
+      
+      <!-- Botones con scroll horizontal -->
+      <div class="action-buttons-scroll">
+        <div class="action-buttons" id="videoActionButtons">
+          <button class="btn-custom btn-nav" onclick="videoNav.previous()">
+            <i class="bi bi-skip-start-fill"></i> Anterior
+          </button>
+          <button class="btn-custom btn-nav" onclick="videoNav.next()">
+            <i class="bi bi-skip-end-fill"></i> Siguiente
+          </button>
+          <button class="btn-custom btn-back" onclick="history.back()">
+            <i class="bi bi-arrow-left"></i> Volver
+          </button>
+          <button class="btn-custom btn-switch" id="switchToMusic" style="display:none;">
+            <i class="bi bi-music-note-beamed"></i> Escuchar música
+          </button>
+          <button class="btn-custom btn-share" onclick="shareContent('video')">
+            <i class="bi bi-share-fill"></i> Compartir
+          </button>
+          <button class="btn-custom btn-like">
+            <i class="bi bi-heart-fill"></i> Me gusta
+          </button>
+          <button class="btn-custom btn-playlist">
+            <i class="bi bi-collection-play-fill"></i> Añadir a playlist
+          </button>
+          <button class="btn-custom btn-download">
+            <i class="bi bi-download"></i> Descargar
+          </button>
+        </div>
+      </div>
+
+      <!-- Modos de reproducción para video -->
+      <div class="mode-controls">
+        <button class="mode-btn active" id="videoSequentialMode" onclick="videoNav.setPlayMode('sequential')">
+          <i class="bi bi-arrow-repeat"></i> Secuencial
         </button>
-        <button class="btn-custom btn-switch" id="switchToMusic" style="display:none;">
-          <i class="bi bi-music-note-beamed"></i> Escuchar música
+        <button class="mode-btn" id="videoShuffleMode" onclick="videoNav.setPlayMode('shuffle')">
+          <i class="bi bi-shuffle"></i> Aleatorio
+        </button>
+        <button class="mode-btn" id="videoRepeatMode" onclick="videoNav.setPlayMode('repeat')">
+          <i class="bi bi-repeat-1"></i> Repetir
         </button>
       </div>
     </div>
+  </div>
+
+  <!-- Sección "A continuación" solo para videos -->
+  <div class="up-next-section">
+    <h2 class="up-next-title">A continuación</h2>
+    <div class="video-grid" id="upNextGrid"></div>
   </div>
 </div>
 
@@ -584,25 +855,25 @@ body {
     </div>
 
     <div class="controls-section">
-      <button class="control-btn" onclick="player.previous()" data-tooltip="Anterior">
+      <button class="control-btn" onclick="player.previous()">
         <i class="bi bi-skip-start-fill"></i>
       </button>
-      <button class="control-btn play-pause" onclick="player.togglePlay()" data-tooltip="Reproducir/Pausar">
+      <button class="control-btn play-pause" onclick="player.togglePlay()">
         <i class="bi bi-play-fill" id="playIcon"></i>
       </button>
-      <button class="control-btn" onclick="player.next()" data-tooltip="Siguiente">
+      <button class="control-btn" onclick="player.next()">
         <i class="bi bi-skip-end-fill"></i>
       </button>
     </div>
 
     <div class="mode-controls">
-      <button class="mode-btn active" id="sequentialMode" onclick="player.setPlayMode('sequential')" data-tooltip="Reproducción secuencial">
+      <button class="mode-btn active" id="sequentialMode" onclick="player.setPlayMode('sequential')">
         <i class="bi bi-arrow-repeat"></i> Secuencial
       </button>
-      <button class="mode-btn" id="shuffleMode" onclick="player.setPlayMode('shuffle')" data-tooltip="Reproducción aleatoria">
+      <button class="mode-btn" id="shuffleMode" onclick="player.setPlayMode('shuffle')">
         <i class="bi bi-shuffle"></i> Aleatorio
       </button>
-      <button class="mode-btn" id="repeatMode" onclick="player.setPlayMode('repeat')" data-tooltip="Repetir canción">
+      <button class="mode-btn" id="repeatMode" onclick="player.setPlayMode('repeat')">
         <i class="bi bi-repeat-1"></i> Repetir
       </button>
     </div>
@@ -613,18 +884,39 @@ body {
       <span class="volume-value" id="volumeValue">100%</span>
     </div>
 
-    <div class="action-buttons" style="margin-top: 30px; justify-content: center;">
-      <button class="btn-custom btn-back" onclick="history.back()">
-        <i class="bi bi-arrow-left"></i> Volver
-      </button>
-      <button class="btn-custom btn-switch" id="switchToVideo" style="display:none;">
-        <i class="bi bi-play-btn"></i> Ver video
-      </button>
+    <!-- Botones con scroll horizontal para música -->
+    <div class="action-buttons-scroll" style="margin-top: 25px;">
+      <div class="action-buttons" id="musicActionButtons">
+        <button class="btn-custom btn-nav" onclick="player.previous()">
+          <i class="bi bi-skip-start-fill"></i> Anterior
+        </button>
+        <button class="btn-custom btn-nav" onclick="player.next()">
+          <i class="bi bi-skip-end-fill"></i> Siguiente
+        </button>
+        <button class="btn-custom btn-back" onclick="history.back()">
+          <i class="bi bi-arrow-left"></i> Volver
+        </button>
+        <button class="btn-custom btn-switch" id="switchToVideo" style="display:none;">
+          <i class="bi bi-play-btn"></i> Ver video
+        </button>
+        <button class="btn-custom btn-share" onclick="shareContent('musica')">
+          <i class="bi bi-share-fill"></i> Compartir
+        </button>
+        <button class="btn-custom btn-like">
+          <i class="bi bi-heart-fill"></i> Me gusta
+        </button>
+        <button class="btn-custom btn-playlist">
+          <i class="bi bi-collection-play-fill"></i> Añadir a playlist
+        </button>
+        <button class="btn-custom btn-download">
+          <i class="bi bi-download"></i> Descargar
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Mini Player - Solo se muestra en index.html -->
+<!-- Mini Player -->
 <div class="mini-player" id="miniPlayer">
   <div class="mini-content">
     <img id="miniCover" class="mini-cover" src="" alt="Cover">
@@ -653,16 +945,230 @@ body {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+// Sistema de notificaciones toast
+function showToast(message, icon = 'check-circle-fill', color = '#34c759') {
+  const toast = document.getElementById('toastNotification');
+  const iconEl = toast.querySelector('i');
+  const messageEl = document.getElementById('toastMessage');
+  
+  iconEl.className = `bi bi-${icon}`;
+  iconEl.style.color = color;
+  messageEl.textContent = message;
+  
+  toast.classList.add('show');
+  
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
+
+// Función para compartir contenido
+function shareContent(tipo) {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const currentUrl = `${window.location.origin}${window.location.pathname}?id=${id}&tipo=${tipo}`;
+  
+  // Obtener título del contenido
+  const title = document.getElementById(tipo === 'video' ? 'videoTitle' : 'musicTitle').textContent;
+  
+  if (navigator.share) {
+    // Si el navegador soporta Web Share API (móviles principalmente)
+    navigator.share({
+      title: title,
+      text: `Mira este contenido: ${title}`,
+      url: currentUrl
+    }).then(() => {
+      showToast('Compartido exitosamente', 'check-circle-fill', '#34c759');
+    }).catch((error) => {
+      if (error.name !== 'AbortError') {
+        copyToClipboard(currentUrl);
+      }
+    });
+  } else {
+    // Fallback: copiar al portapapeles
+    copyToClipboard(currentUrl);
+  }
+}
+
+// Copiar al portapapeles
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Enlace copiado al portapapeles', 'clipboard-check-fill', '#007aff');
+    }).catch(() => {
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+// Método alternativo para copiar
+function fallbackCopy(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  try {
+    document.execCommand('copy');
+    showToast('Enlace copiado al portapapeles', 'clipboard-check-fill', '#007aff');
+  } catch (err) {
+    showToast('No se pudo copiar el enlace', 'x-circle-fill', '#ff3b30');
+  }
+  document.body.removeChild(textarea);
+}
+
+// Sistema de gestión de sesión musical
+const MusicSession = {
+  save(data) {
+    const session = {
+      id: data.id,
+      currentTime: data.currentTime || 0,
+      volume: data.volume || 100,
+      isPlaying: data.isPlaying || false,
+      playMode: data.playMode || 'sequential',
+      timestamp: Date.now()
+    };
+    sessionStorage.setItem('musicSession', JSON.stringify(session));
+  },
+
+  load() {
+    const saved = sessionStorage.getItem('musicSession');
+    if (saved) {
+      const session = JSON.parse(saved);
+      if (Date.now() - session.timestamp < 3600000) {
+        return session;
+      }
+    }
+    return null;
+  },
+
+  clear() {
+    sessionStorage.removeItem('musicSession');
+  }
+};
+
+// Sistema de gestión de modos de reproducción de video
+const VideoModeSession = {
+  save(mode) {
+    sessionStorage.setItem('videoPlayMode', mode);
+  },
+
+  load() {
+    return sessionStorage.getItem('videoPlayMode') || 'sequential';
+  }
+};
+
+// Navegación de videos
+const videoNav = {
+  allVideos: [],
+  currentIndex: 0,
+  playMode: 'sequential',
+
+  init(videos, currentId) {
+    this.allVideos = videos.filter(v => v.url);
+    this.currentIndex = this.allVideos.findIndex(v => String(v.id) === String(currentId));
+    
+    // Cargar modo guardado
+    this.playMode = VideoModeSession.load();
+    this.updateModeUI();
+    
+    const videoPlayer = document.getElementById('videoPlayer');
+    if (videoPlayer) {
+      videoPlayer.addEventListener('ended', () => this.handleVideoEnd());
+    }
+  },
+
+  setPlayMode(mode) {
+    this.playMode = mode;
+    VideoModeSession.save(mode);
+    this.updateModeUI();
+    showToast(`Modo ${mode === 'sequential' ? 'secuencial' : mode === 'shuffle' ? 'aleatorio' : 'repetir'} activado`, 'check-circle-fill', '#8b5cf6');
+  },
+
+  updateModeUI() {
+    document.querySelectorAll('[id^="video"][id$="Mode"]').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    const modeBtn = document.getElementById('video' + this.playMode.charAt(0).toUpperCase() + this.playMode.slice(1) + 'Mode');
+    if (modeBtn) modeBtn.classList.add('active');
+  },
+
+  handleVideoEnd() {
+    if (this.playMode === 'repeat') {
+      document.getElementById('videoPlayer').play();
+    } else {
+      this.next();
+    }
+  },
+
+  next() {
+    if (this.allVideos.length === 0) return;
+    
+    let nextIndex;
+    if (this.playMode === 'shuffle') {
+      nextIndex = Math.floor(Math.random() * this.allVideos.length);
+    } else {
+      nextIndex = (this.currentIndex + 1) % this.allVideos.length;
+    }
+    
+    const nextVideo = this.allVideos[nextIndex];
+    if (nextVideo) {
+      window.location.href = `play.html?id=${encodeURIComponent(nextVideo.id)}&tipo=video`;
+    }
+  },
+
+  previous() {
+    if (this.allVideos.length === 0) return;
+    
+    let prevIndex;
+    if (this.playMode === 'shuffle') {
+      prevIndex = Math.floor(Math.random() * this.allVideos.length);
+    } else {
+      prevIndex = (this.currentIndex - 1 + this.allVideos.length) % this.allVideos.length;
+    }
+    
+    const prevVideo = this.allVideos[prevIndex];
+    if (prevVideo) {
+      window.location.href = `play.html?id=${encodeURIComponent(prevVideo.id)}&tipo=video`;
+    }
+  }
+};
+
+// Reproductor de música
 const player = {
   audio: null,
   currentData: null,
   isPlaying: false,
   playMode: 'sequential',
+  saveInterval: null,
 
   init(data) {
     this.currentData = data;
-    this.audio = new Audio();
+    
+    const session = MusicSession.load();
+    
+    if (!this.audio) {
+      this.audio = new Audio();
+    }
+    
     this.audio.src = data.src || data.musicas || '';
+    
+    if (session && session.id === data.id) {
+      this.audio.currentTime = session.currentTime;
+      this.setVolume(session.volume);
+      this.playMode = session.playMode;
+      
+      document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+      const modeBtn = document.getElementById(session.playMode + 'Mode');
+      if (modeBtn) modeBtn.classList.add('active');
+      
+      if (session.isPlaying) {
+        setTimeout(() => this.audio.play(), 100);
+      }
+    }
     
     this.audio.addEventListener('timeupdate', () => this.updateProgress());
     this.audio.addEventListener('ended', () => this.handleEnd());
@@ -675,11 +1181,26 @@ const player = {
       }
     });
     
-    // Activar mini player solo si estamos en index.html
     const currentPage = window.location.pathname;
     if (currentPage.includes('index.html') || currentPage === '/' || currentPage.endsWith('/')) {
       document.getElementById('miniPlayer').classList.add('active');
       this.updateMiniPlayer();
+    }
+    
+    this.saveInterval = setInterval(() => {
+      this.saveSession();
+    }, 2000);
+  },
+
+  saveSession() {
+    if (this.audio && this.currentData) {
+      MusicSession.save({
+        id: this.currentData.id,
+        currentTime: this.audio.currentTime,
+        volume: this.audio.volume * 100,
+        isPlaying: this.isPlaying,
+        playMode: this.playMode
+      });
     }
   },
 
@@ -746,6 +1267,8 @@ const player = {
       btn.classList.remove('active');
     });
     document.getElementById(mode + 'Mode').classList.add('active');
+    this.saveSession();
+    showToast(`Modo ${mode === 'sequential' ? 'secuencial' : mode === 'shuffle' ? 'aleatorio' : 'repetir'} activado`, 'check-circle-fill', '#8b5cf6');
   },
 
   handleEnd() {
@@ -775,8 +1298,12 @@ const player = {
       this.audio.volume = value / 100;
       const volumeValue = document.getElementById('volumeValue');
       if (volumeValue) {
-        volumeValue.textContent = value + '%';
+        volumeValue.textContent = Math.round(value) + '%';
       }
+      
+      document.querySelectorAll('.volume-slider').forEach(slider => {
+        slider.value = value;
+      });
     }
   },
 
@@ -784,9 +1311,55 @@ const player = {
     document.getElementById('miniCover').src = this.currentData.cover || this.currentData.thumbnail || '';
     document.getElementById('miniTitle').textContent = this.currentData.title || this.currentData.titulo || 'Sin título';
     document.getElementById('miniGenre').textContent = this.currentData.genre || this.currentData.genero || '';
+  },
+
+  destroy() {
+    if (this.saveInterval) {
+      clearInterval(this.saveInterval);
+    }
   }
 };
 
+// Función para volver al inicio preservando la sesión
+function goToHome() {
+  if (player.audio && player.currentData) {
+    player.saveSession();
+  }
+  window.location.href = 'index.html';
+}
+
+// Renderizar cards de "A continuación"
+function renderUpNext(allVideos, currentId, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const otherVideos = allVideos.filter(v => String(v.id) !== String(currentId));
+  const shuffled = otherVideos.sort(() => Math.random() - 0.5).slice(0, 6);
+
+  container.innerHTML = shuffled.map(video => {
+    const hasVideo = !!video.url;
+    const hasMusic = !!(video.src || video.musicas);
+    const title = video.title || video.titulo || 'Sin título';
+    const genre = video.genre || video.genero || 'Sin género';
+    const thumbnail = video.cover || video.thumbnail || 'https://via.placeholder.com/320x180?text=Sin+imagen';
+
+    return `
+      <a href="play.html?id=${encodeURIComponent(video.id)}&tipo=${hasVideo ? 'video' : 'musica'}" class="video-card">
+        <img src="${thumbnail}" alt="${title}" class="video-card-thumbnail">
+        <div class="video-card-info">
+          <h3 class="video-card-title">${title}</h3>
+          <p class="video-card-genre">${genre}</p>
+          <div class="video-card-badges">
+            ${hasVideo ? '<span class="badge-icon badge-video"><i class="bi bi-play-fill"></i></span>' : ''}
+            ${hasMusic ? '<span class="badge-icon badge-music"><i class="bi bi-music-note"></i></span>' : ''}
+          </div>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+
+// Código principal
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
 const tipo = params.get('tipo') || 'video';
@@ -796,17 +1369,23 @@ fetch('video.json')
   .then(data => {
     const v = data.find(x => String(x.id) === String(id));
     if (!v) {
-      document.body.innerHTML = '<div style="text-align:center; padding:50px;"><p style="color:#f00;">Contenido no encontrado.</p><button class="btn-custom btn-back" onclick="history.back()"><i class="bi bi-arrow-left"></i> Volver</button></div>';
+      document.body.innerHTML = '<div style="text-align:center; padding:50px;"><p style="color:#f00;">Contenido no encontrado.</p><button class="btn-custom btn-back" onclick="goToHome()"><i class="bi bi-arrow-left"></i> Volver</button></div>';
       return;
     }
 
     if (tipo === 'video' && v.url) {
-      // Modo Video - Estilo YouTube
+      // Modo Video
       document.getElementById('videoContainer').style.display = 'block';
       document.getElementById('videoPlayer').src = v.url;
       document.getElementById('videoTitle').textContent = v.title || v.titulo || 'Sin título';
       document.getElementById('videoGenre').textContent = v.genre || v.genero || 'Sin género';
       document.getElementById('videoDescription').textContent = v.description || v.descripcion || 'Sin descripción';
+
+      // Inicializar navegación de videos
+      videoNav.init(data, v.id);
+
+      // Renderizar videos relacionados
+      renderUpNext(data, v.id, 'upNextGrid');
 
       // Botón para cambiar a música si existe
       if (v.src || v.musicas) {
@@ -818,7 +1397,7 @@ fetch('video.json')
       }
 
     } else if (tipo === 'musica' && (v.src || v.musicas)) {
-      // Modo Música - Reproductor profesional
+      // Modo Música
       document.getElementById('musicContainer').style.display = 'block';
       document.getElementById('albumCover').src = v.cover || v.thumbnail || '';
       document.getElementById('musicTitle').textContent = v.title || v.titulo || 'Sin título';
@@ -835,13 +1414,20 @@ fetch('video.json')
         };
       }
     } else {
-      document.body.innerHTML = '<div style="text-align:center; padding:50px;"><p style="color:#f00;">Tipo de contenido no disponible.</p><button class="btn-custom btn-back" onclick="history.back()"><i class="bi bi-arrow-left"></i> Volver</button></div>';
+      document.body.innerHTML = '<div style="text-align:center; padding:50px;"><p style="color:#f00;">Tipo de contenido no disponible.</p><button class="btn-custom btn-back" onclick="goToHome()"><i class="bi bi-arrow-left"></i> Volver</button></div>';
     }
   })
   .catch(err => {
     console.error('Error cargando video.json', err);
     document.body.innerHTML = '<div style="text-align:center; padding:50px;"><p style="color:#f00;">Error al cargar contenido.</p></div>';
   });
+
+// Limpiar antes de salir
+window.addEventListener('beforeunload', () => {
+  if (player.audio && player.currentData) {
+    player.saveSession();
+  }
+});
 </script>
 
 </body>
