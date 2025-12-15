@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "titulo": "Curso HTML Básico",
+    "descripcion": "Aprende HTML desde cero",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765740634/Coolio_-_Gangsta_s_Paradise_feat._L.V._Official_Music_Video__High_jdwjgc.mp4",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1765739195/music1_no5ycs.jpg",
+    "genero": "Educativo",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765740944/music1_pccjze.mp3"
+  },
+  {
+    "id": "2",
+    "titulo": "Curso CSS",
+    "descripcion": "Diseño moderno con CSS",
+    "url": "https://www.w3schools.com/html/movie.mp4",
+    "thumbnail": "https://via.placeholder.com/400x200",
+    "genero": "Educativo",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765740944/music1_pccjze.mp3"
+  },
+  {
+    "id": "3",
+    "titulo": "Video Divertido de Gatos",
+    "descripcion": "Entretenimiento y diversión",
+    "url": "https://www.w3schools.com/html/mov_bbb.mp4",
+    "thumbnail": "https://via.placeholder.com/400x200",
+    "genero": "Entretenimiento",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765740944/music1_pccjze.mp3"
+  }
+]

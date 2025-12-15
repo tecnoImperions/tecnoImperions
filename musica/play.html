@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Reproductor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="https://res.cloudinary.com/duwvw6q2c/image/upload/v1765742101/varian_lbd26r.webp" type="image/png">
+<link rel="apple-touch-icon" href="https://res.cloudinary.com/duwvw6q2c/image/upload/v1765742101/varian_lbd26r.webp" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<style>
+body { 
+  background: #0f0f0f;
+  color: #fff; 
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+/* Estilo YouTube para videos */
+.video-container {
+  background: #000;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  background: #000;
+}
+
+.video-wrapper video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+}
+
+.video-info {
+  padding: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.video-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+}
+
+.video-meta {
+  display: flex;
+  gap: 15px;
+  color: #aaa;
+  font-size: 14px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.video-description {
+  background: #272727;
+  padding: 15px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+/* Reproductor MP3 */
+.music-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 30px 20px;
+}
+
+.turntable-container {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin: 0 auto 30px;
+}
+
+.turntable-base {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #2a2a2a 0%, #1a1a1a 70%, #0a0a0a 100%);
+  border-radius: 50%;
+  box-shadow: 
+    inset 0 0 20px rgba(0,0,0,0.8),
+    0 10px 40px rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.vinyl-record {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  position: relative;
+  background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
+}
+
+.vinyl-record::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle at center,
+    transparent 0px,
+    transparent 2px,
+    rgba(255,255,255,0.03) 2px,
+    rgba(255,255,255,0.03) 4px
+  );
+}
+
+.album-cover {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+  border: 3px solid #000;
+}
+
+.vinyl-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: #333;
+  border-radius: 50%;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.vinyl-record.playing {
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.music-info {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.music-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.music-genre {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.progress-section {
+  margin: 25px 0;
+}
+
+.progress-bar-custom {
+  width: 100%;
+  height: 5px;
+  background: #3a3a3a;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #fff;
+  border-radius: 10px;
+  width: 0%;
+  transition: width 0.1s;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.progress-bar-custom:hover .progress-fill::after {
+  opacity: 1;
+}
+
+.time-display {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.controls-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.control-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #3a3a3a;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.control-btn:hover {
+  background: #4a4a4a;
+  transform: scale(1.05);
+}
+
+.control-btn.play-pause {
+  width: 64px;
+  height: 64px;
+  font-size: 24px;
+  background: #fff;
+  color: #000;
+}
+
+.control-btn.play-pause:hover {
+  background: #e0e0e0;
+}
+
+.control-btn[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  background: #3a3a3a;
+  color: #fff;
+  font-size: 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.control-btn[data-tooltip]:hover::after {
+  content: '';
+  position: absolute;
+  bottom: 105%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #3a3a3a;
+  pointer-events: none;
+}
+
+.mode-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.mode-btn {
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: 1px solid #3a3a3a;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mode-btn:hover {
+  background: #2a2a2a;
+  border-color: #fff;
+  color: #fff;
+}
+
+.mode-btn.active {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+.volume-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 15px;
+  background: #1a1a1a;
+  border-radius: 12px;
+}
+
+.volume-icon {
+  color: #fff;
+  font-size: 20px;
+}
+
+.volume-slider {
+  width: 120px;
+  height: 5px;
+  -webkit-appearance: none;
+  background: #3a3a3a;
+  border-radius: 5px;
+  outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+.volume-value {
+  font-size: 13px;
+  color: #aaa;
+  min-width: 35px;
+  text-align: right;
+}
+
+/* Botones de acción */
+.btn-custom {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-back {
+  background: #3a3a3a;
+  color: #fff;
+}
+
+.btn-back:hover {
+  background: #4a4a4a;
+}
+
+.btn-switch {
+  background: #fff;
+  color: #000;
+}
+
+.btn-switch:hover {
+  background: #e0e0e0;
+}
+
+/* Mini Player Footer - Solo para index.html */
+.mini-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #181818;
+  padding: 12px 16px;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+  display: none;
+  z-index: 1000;
+  border-top: 1px solid #2a2a2a;
+}
+
+.mini-player.active {
+  display: block;
+}
+
+.mini-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.mini-cover {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #2a2a2a;
+}
+
+.mini-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.mini-title {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.mini-genre {
+  font-size: 12px;
+  color: #aaa;
+  margin: 0;
+}
+
+.mini-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.mini-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.mini-btn:hover {
+  background: #3a3a3a;
+}
+
+.mini-volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .video-title {
+    font-size: 18px;
+  }
+  
+  .turntable-container {
+    width: 240px;
+    height: 240px;
+  }
+  
+  .vinyl-record {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .album-cover {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .mini-volume {
+    display: none;
+  }
+  
+  .mini-info {
+    max-width: 150px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Contenedor para video -->
+<div id="videoContainer" style="display:none;">
+  <div class="video-container">
+    <div class="video-wrapper">
+      <video id="videoPlayer" controls autoplay></video>
+    </div>
+    <div class="video-info">
+      <h1 class="video-title" id="videoTitle"></h1>
+      <div class="video-meta">
+        <span><i class="bi bi-tag"></i> <span id="videoGenre"></span></span>
+      </div>
+      <div class="video-description" id="videoDescription"></div>
+      <div class="action-buttons">
+        <button class="btn-custom btn-back" onclick="history.back()">
+          <i class="bi bi-arrow-left"></i> Volver
+        </button>
+        <button class="btn-custom btn-switch" id="switchToMusic" style="display:none;">
+          <i class="bi bi-music-note-beamed"></i> Escuchar música
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contenedor para música -->
+<div id="musicContainer" style="display:none;">
+  <div class="music-container">
+    <div class="turntable-container">
+      <div class="turntable-base">
+        <div class="vinyl-record" id="vinylRecord">
+          <img id="albumCover" class="album-cover" src="" alt="Cover">
+          <div class="vinyl-center"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="music-info">
+      <h1 class="music-title" id="musicTitle"></h1>
+      <p class="music-genre" id="musicGenre"></p>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-bar-custom" id="progressBar" onclick="player.seekTo(event)">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="time-display">
+        <span id="currentTime">0:00</span>
+        <span id="duration">0:00</span>
+      </div>
+    </div>
+
+    <div class="controls-section">
+      <button class="control-btn" onclick="player.previous()" data-tooltip="Anterior">
+        <i class="bi bi-skip-start-fill"></i>
+      </button>
+      <button class="control-btn play-pause" onclick="player.togglePlay()" data-tooltip="Reproducir/Pausar">
+        <i class="bi bi-play-fill" id="playIcon"></i>
+      </button>
+      <button class="control-btn" onclick="player.next()" data-tooltip="Siguiente">
+        <i class="bi bi-skip-end-fill"></i>
+      </button>
+    </div>
+
+    <div class="mode-controls">
+      <button class="mode-btn active" id="sequentialMode" onclick="player.setPlayMode('sequential')" data-tooltip="Reproducción secuencial">
+        <i class="bi bi-arrow-repeat"></i> Secuencial
+      </button>
+      <button class="mode-btn" id="shuffleMode" onclick="player.setPlayMode('shuffle')" data-tooltip="Reproducción aleatoria">
+        <i class="bi bi-shuffle"></i> Aleatorio
+      </button>
+      <button class="mode-btn" id="repeatMode" onclick="player.setPlayMode('repeat')" data-tooltip="Repetir canción">
+        <i class="bi bi-repeat-1"></i> Repetir
+      </button>
+    </div>
+
+    <div class="volume-section">
+      <i class="bi bi-volume-up volume-icon"></i>
+      <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="100" oninput="player.setVolume(this.value)">
+      <span class="volume-value" id="volumeValue">100%</span>
+    </div>
+
+    <div class="action-buttons" style="margin-top: 30px; justify-content: center;">
+      <button class="btn-custom btn-back" onclick="history.back()">
+        <i class="bi bi-arrow-left"></i> Volver
+      </button>
+      <button class="btn-custom btn-switch" id="switchToVideo" style="display:none;">
+        <i class="bi bi-play-btn"></i> Ver video
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Mini Player - Solo se muestra en index.html -->
+<div class="mini-player" id="miniPlayer">
+  <div class="mini-content">
+    <img id="miniCover" class="mini-cover" src="" alt="Cover">
+    <div class="mini-info">
+      <p class="mini-title" id="miniTitle">-</p>
+      <p class="mini-genre" id="miniGenre">-</p>
+    </div>
+    <div class="mini-controls">
+      <button class="mini-btn" onclick="player.previous()" title="Anterior">
+        <i class="bi bi-skip-start-fill"></i>
+      </button>
+      <button class="mini-btn" onclick="player.togglePlay()" title="Reproducir/Pausar">
+        <i class="bi bi-play-fill" id="miniPlayIcon"></i>
+      </button>
+      <button class="mini-btn" onclick="player.next()" title="Siguiente">
+        <i class="bi bi-skip-end-fill"></i>
+      </button>
+      <div class="mini-volume">
+        <i class="bi bi-volume-up"></i>
+        <input type="range" class="volume-slider" min="0" max="100" value="100" oninput="player.setVolume(this.value)" style="width: 80px;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+const player = {
+  audio: null,
+  currentData: null,
+  isPlaying: false,
+  playMode: 'sequential',
+
+  init(data) {
+    this.currentData = data;
+    this.audio = new Audio();
+    this.audio.src = data.src || data.musicas || '';
+    
+    this.audio.addEventListener('timeupdate', () => this.updateProgress());
+    this.audio.addEventListener('ended', () => this.handleEnd());
+    this.audio.addEventListener('play', () => this.updatePlayState(true));
+    this.audio.addEventListener('pause', () => this.updatePlayState(false));
+    this.audio.addEventListener('loadedmetadata', () => {
+      const durationEl = document.getElementById('duration');
+      if (durationEl) {
+        durationEl.textContent = this.formatTime(this.audio.duration);
+      }
+    });
+    
+    // Activar mini player solo si estamos en index.html
+    const currentPage = window.location.pathname;
+    if (currentPage.includes('index.html') || currentPage === '/' || currentPage.endsWith('/')) {
+      document.getElementById('miniPlayer').classList.add('active');
+      this.updateMiniPlayer();
+    }
+  },
+
+  togglePlay() {
+    if (this.isPlaying) {
+      this.audio.pause();
+    } else {
+      this.audio.play();
+    }
+  },
+
+  updatePlayState(playing) {
+    this.isPlaying = playing;
+    const playIcon = document.getElementById('playIcon');
+    const miniPlayIcon = document.getElementById('miniPlayIcon');
+    const vinyl = document.getElementById('vinylRecord');
+    
+    if (playIcon) {
+      playIcon.className = playing ? 'bi bi-pause-fill' : 'bi bi-play-fill';
+    }
+    if (miniPlayIcon) {
+      miniPlayIcon.className = playing ? 'bi bi-pause-fill' : 'bi bi-play-fill';
+    }
+    if (vinyl) {
+      if (playing) {
+        vinyl.classList.add('playing');
+      } else {
+        vinyl.classList.remove('playing');
+      }
+    }
+  },
+
+  updateProgress() {
+    const progressFill = document.getElementById('progressFill');
+    const currentTimeEl = document.getElementById('currentTime');
+    
+    if (this.audio && progressFill) {
+      const percent = (this.audio.currentTime / this.audio.duration) * 100;
+      progressFill.style.width = percent + '%';
+      
+      if (currentTimeEl) {
+        currentTimeEl.textContent = this.formatTime(this.audio.currentTime);
+      }
+    }
+  },
+
+  seekTo(event) {
+    const progressBar = document.getElementById('progressBar');
+    const rect = progressBar.getBoundingClientRect();
+    const percent = (event.clientX - rect.left) / rect.width;
+    this.audio.currentTime = percent * this.audio.duration;
+  },
+
+  formatTime(seconds) {
+    if (!seconds || isNaN(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  },
+
+  setPlayMode(mode) {
+    this.playMode = mode;
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    document.getElementById(mode + 'Mode').classList.add('active');
+  },
+
+  handleEnd() {
+    if (this.playMode === 'repeat') {
+      this.audio.currentTime = 0;
+      this.audio.play();
+    } else if (this.playMode === 'shuffle') {
+      this.audio.currentTime = 0;
+      this.audio.play();
+    } else {
+      this.next();
+    }
+  },
+
+  next() {
+    this.audio.currentTime = 0;
+    this.audio.play();
+  },
+
+  previous() {
+    this.audio.currentTime = 0;
+    this.audio.play();
+  },
+
+  setVolume(value) {
+    if (this.audio) {
+      this.audio.volume = value / 100;
+      const volumeValue = document.getElementById('volumeValue');
+      if (volumeValue) {
+        volumeValue.textContent = value + '%';
+      }
+    }
+  },
+
+  updateMiniPlayer() {
+    document.getElementById('miniCover').src = this.currentData.cover || this.currentData.thumbnail || '';
+    document.getElementById('miniTitle').textContent = this.currentData.title || this.currentData.titulo || 'Sin título';
+    document.getElementById('miniGenre').textContent = this.currentData.genre || this.currentData.genero || '';
+  }
+};
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
+const tipo = params.get('tipo') || 'video';
+
+fetch('video.json')
+  .then(res => res.json())
+  .then(data => {
+    const v = data.find(x => String(x.id) === String(id));
+    if (!v) {
+      document.body.innerHTML = '<div style="text-align:center; padding:50px;"><p style="color:#f00;">Contenido no encontrado.</p><button class="btn-custom btn-back" onclick="history.back()"><i class="bi bi-arrow-left"></i> Volver</button></div>';
+      return;
+    }
+
+    if (tipo === 'video' && v.url) {
+      // Modo Video - Estilo YouTube
+      document.getElementById('videoContainer').style.display = 'block';
+      document.getElementById('videoPlayer').src = v.url;
+      document.getElementById('videoTitle').textContent = v.title || v.titulo || 'Sin título';
+      document.getElementById('videoGenre').textContent = v.genre || v.genero || 'Sin género';
+      document.getElementById('videoDescription').textContent = v.description || v.descripcion || 'Sin descripción';
+
+      // Botón para cambiar a música si existe
+      if (v.src || v.musicas) {
+        const switchBtn = document.getElementById('switchToMusic');
+        switchBtn.style.display = 'inline-flex';
+        switchBtn.onclick = () => {
+          window.location.href = `play.html?id=${encodeURIComponent(v.id)}&tipo=musica`;
+        };
+      }
+
+    } else if (tipo === 'musica' && (v.src || v.musicas)) {
+      // Modo Música - Reproductor profesional
+      document.getElementById('musicContainer').style.display = 'block';
+      document.getElementById('albumCover').src = v.cover || v.thumbnail || '';
+      document.getElementById('musicTitle').textContent = v.title || v.titulo || 'Sin título';
+      document.getElementById('musicGenre').textContent = v.genre || v.genero || '';
+
+      player.init(v);
+
+      // Botón para cambiar a video si existe
+      if (v.url) {
+        const switchBtn = document.getElementById('switchToVideo');
+        switchBtn.style.display = 'inline-flex';
+        switchBtn.onclick = () => {
+          window.location.href = `play.html?id=${encodeURIComponent(v.id)}&tipo=video`;
+        };
+      }
+    } else {
+      document.body.innerHTML = '<div style="text-align:center; padding:50px;"><p style="color:#f00;">Tipo de contenido no disponible.</p><button class="btn-custom btn-back" onclick="history.back()"><i class="bi bi-arrow-left"></i> Volver</button></div>';
+    }
+  })
+  .catch(err => {
+    console.error('Error cargando video.json', err);
+    document.body.innerHTML = '<div style="text-align:center; padding:50px;"><p style="color:#f00;">Error al cargar contenido.</p></div>';
+  });
+</script>
+
+</body>
+</html>

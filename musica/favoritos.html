@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>VideoApp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="https://res.cloudinary.com/duwvw6q2c/image/upload/v1765742101/varian_lbd26r.webp" type="image/png">
+<link rel="apple-touch-icon" href="https://res.cloudinary.com/duwvw6q2c/image/upload/v1765742101/varian_lbd26r.webp" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+  padding-bottom: 80px;
+}
+body.dark-mode { background-color: #121212; color: #fff; }
+
+.navbar {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.navbar-brand { font-weight: 600; color: white !important; }
+.navbar-icons-left button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.4rem;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: color 0.2s;
+}
+.navbar-icons-left button:hover { color: #fffb; }
+
+/* BUSCADOR */
+#searchContainer {
+  position: relative;
+  max-width: 400px;
+  display: none; /* inicialmente oculto */
+  margin-left: 10px;
+  transition: all 0.3s ease;
+}
+#searchContainer.active { display: block; }
+#searchInput {
+  border-radius: 20px;
+  padding-left: 35px;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+body.dark-mode #searchInput { background-color: #333; border-color:#444; color:white; }
+.search-icon { position:absolute; left:12px; top:10px; color:#777; }
+
+/* TARJETAS */
+.card, .audio-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  transition: transform 0.3s;
+  border: none;
+  margin-bottom: 15px;
+}
+body.dark-mode .card, body.dark-mode .audio-card { background-color: #1e1e1e; }
+.card:active, .audio-card:active { transform: scale(0.97); }
+.card img, .cover-img { height: 180px; object-fit: cover; width: 100%; transition: transform 0.3s; }
+.card:hover img, .audio-card:hover .cover-img { transform: scale(1.05); }
+.card-body, .audio-card .card-body { display:flex; flex-direction:column; justify-content:space-between; height:220px; padding:12px; }
+.card-title { font-size: 0.9rem; margin-bottom:5px; text-align:center; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.genre { display:inline-block; font-size:0.75rem; background-color:#6a11cb; color:white; padding:2px 8px; border-radius:20px; }
+
+/* MODALES */
+.modal-content { border-radius:12px; }
+@media (max-width:767.98px) {
+  .modal-dialog.modal-dialog-bottom { position:fixed; bottom:0; left:0; right:0; margin:0; max-width:100%; transform:translateY(0)!important; }
+  .modal-dialog.modal-dialog-bottom .modal-content { border-top-left-radius:12px; border-top-right-radius:12px; max-height:80vh; overflow:auto; }
+  .modal-backdrop.show { opacity:0.5; }
+}
+
+/* DROPDOWN */
+.dropdown-menu { border-radius:10px; border:none; box-shadow:0 5px 15px rgba(0,0,0,0.1); overflow:hidden; }
+body.dark-mode .dropdown-menu { background-color:#2d2d2d; }
+body.dark-mode .dropdown-item { color:#fff; }
+body.dark-mode .dropdown-item:hover { background-color:#3d3d3d; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><i class="bi bi-camera-video-fill"></i> VideoApp</a>
+
+    <!-- ICONOS A LA IZQUIERDA DEL HAMBURGUESA -->
+    <div class="navbar-icons-left d-flex align-items-center me-2">
+      <button id="toggleSearch" title="Buscar"><i class="bi bi-search"></i></button>
+      <button id="toggleDark" title="Modo oscuro"><i class="bi bi-moon-stars"></i></button>
+    </div>
+
+    <!-- BOTON HAMBURGUESA -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- CONTENIDO COLLAPSIBLE -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <!-- BUSCADOR -->
+      <div id="searchContainer">
+        <span class="search-icon"><i class="bi bi-search"></i></span>
+        <input id="searchInput" class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar">
+      </div>
+
+      <!-- OPCIONES DROPDOWN -->
+      <div class="btn-group ms-2">
+        <button class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Opciones</button>
+        <ul class="dropdown-menu dropdown-menu-end p-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="audioOnly">
+            <label class="form-check-label" for="audioOnly">Buscar solo audio</label>
+          </div>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#helpModal"><i class="bi bi-question-circle"></i> Ayuda</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- CONTENEDOR DE VIDEOS -->
+<div class="container mt-4">
+  <div class="row" id="listaVideos"></div>
+</div>
+
+<!-- MODAL AYUDA -->
+<div class="modal fade" id="helpModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-info-circle"></i> Ayuda</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        Selecciona un video para reproducirlo. Aparecerán opciones para ver el video o escuchar la música asociada.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL OPCIONES REPRODUCCIÓN -->
+<div class="modal fade" id="optionsModal">
+  <div class="modal-dialog modal-dialog-bottom">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="optionsTitle"><i class="bi bi-play-circle"></i> Opciones de reproducción</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body d-grid gap-2" id="optionsBody"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// CARGAR VIDEOS
+fetch('video.json')
+  .then(res => res.json())
+  .then(data => {
+    const contenedor = document.getElementById('listaVideos');
+    let html = '';
+    data.forEach(v => {
+      html += `
+        <div class="col-md-4 mb-3">
+          <div class="card shadow-sm" onclick='mostrarOpciones(${JSON.stringify(v)})' style="cursor:pointer">
+            <img src="${v.thumbnail}" class="card-img-top" alt="${v.titulo}">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <div>
+                <h5 class="card-title">${v.titulo}</h5>
+                <p class="card-text">${v.descripcion}</p>
+                <p class="genre">${v.genero}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    contenedor.innerHTML = html;
+  });
+
+// MOSTRAR MODAL OPCIONES
+function mostrarOpciones(video) {
+  const optionsTitle = document.getElementById('optionsTitle');
+  const optionsBody = document.getElementById('optionsBody');
+  optionsTitle.textContent = video.titulo;
+  optionsBody.innerHTML = '';
+
+  const btnVideo = document.createElement('a');
+  btnVideo.className = 'btn btn-danger w-100 mb-2';
+  btnVideo.innerHTML = '<i class="bi bi-camera-video-fill"></i> Video';
+  btnVideo.href = `play.html?id=${video.id}&tipo=video`;
+  optionsBody.appendChild(btnVideo);
+
+  if (video.musicas) {
+    const btnMusic = document.createElement('a');
+    btnMusic.className = 'btn btn-info w-100';
+    btnMusic.innerHTML = '<i class="bi bi-music-note-beamed"></i> Música';
+    btnMusic.href = `play.html?id=${video.id}&tipo=musica`;
+    optionsBody.appendChild(btnMusic);
+  }
+
+  const optionsModal = new bootstrap.Modal(document.getElementById('optionsModal'));
+  optionsModal.show();
+}
+
+// TOGGLE MODO OSCURO
+document.getElementById('toggleDark').addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+
+// TOGGLE BUSCADOR
+document.getElementById('toggleSearch').addEventListener('click', () => {
+  const search = document.getElementById('searchContainer');
+  search.classList.toggle('active');
+  if(search.classList.contains('active')) {
+    document.getElementById('searchInput').focus();
+  }
+});
+</script>
+</body>
+</html>
