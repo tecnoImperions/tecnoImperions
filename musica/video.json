@@ -12,8 +12,8 @@
     "id": "2",
     "titulo": "Curso CSS",
     "descripcion": "Diseño moderno con CSS",
-    "url": "https://www.w3schools.com/html/movie.mp4",
-    "thumbnail": "https://via.placeholder.com/400x200",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765825786/We_Are_One_La_canci%C3%B3n_oficial_del_Mundial_de_la_FIFA_Brasil_2014__HIGH_ah8fbk.mp4",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1765825740/1200x630bb_ucqa0m.jpg",
     "genero": "Educativo",
     "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765740944/music1_pccjze.mp3"
   },
@@ -21,7 +21,7 @@
     "id": "3",
     "titulo": "Video Divertido de Gatos",
     "descripcion": "Entretenimiento y diversión",
-    "url": "https://www.w3schools.com/html/mov_bbb.mp4",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765730345/Carly_Rae_Jepsen_-_Call_Me_Maybe_HIGH_r0hqad.mp4",
     "thumbnail": "https://via.placeholder.com/400x200",
     "genero": "Entretenimiento",
     "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765740944/music1_pccjze.mp3"
