@@ -1,29 +1,32 @@
 [
   {
     "id": "1",
-    "titulo": "Curso HTML Básico",
-    "descripcion": "Aprende HTML desde cero",
+    "titulo": "Gangsta's Paradise",
+    "descripcion": "Videoclip oficial de Coolio junto a L.V.",
+    "artista": "Coolio ft. L.V.",
     "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765740634/Coolio_-_Gangsta_s_Paradise_feat._L.V._Official_Music_Video__High_jdwjgc.mp4",
     "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1765739195/music1_no5ycs.jpg",
-    "genero": "Educativo",
+    "genero": "Hip Hop / Rap",
     "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765740944/music1_pccjze.mp3"
   },
   {
     "id": "2",
-    "titulo": "Curso CSS",
-    "descripcion": "Diseño moderno con CSS",
+    "titulo": "We Are One (Ole Ola)",
+    "descripcion": "Canción oficial del Mundial FIFA Brasil 2014",
+    "artista": "Pitbull ft. Jennifer Lopez & Claudia Leitte",
     "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765825786/We_Are_One_La_canci%C3%B3n_oficial_del_Mundial_de_la_FIFA_Brasil_2014__HIGH_ah8fbk.mp4",
     "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1765825740/1200x630bb_ucqa0m.jpg",
-    "genero": "Educativo",
+    "genero": "Pop / Latin",
     "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765740944/music1_pccjze.mp3"
   },
   {
     "id": "3",
-    "titulo": "Video Divertido de Gatos",
-    "descripcion": "Entretenimiento y diversión",
+    "titulo": "Call Me Maybe",
+    "descripcion": "Videoclip oficial del éxito pop internacional",
+    "artista": "Carly Rae Jepsen",
     "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765730345/Carly_Rae_Jepsen_-_Call_Me_Maybe_HIGH_r0hqad.mp4",
-    "thumbnail": "https://via.placeholder.com/400x200",
-    "genero": "Entretenimiento",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766161869/0x1900-000000-80-0-0_rqqt5f.jpg",
+    "genero": "Pop",
     "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1765740944/music1_pccjze.mp3"
   }
 ]
