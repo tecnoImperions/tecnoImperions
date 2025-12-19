@@ -83,21 +83,86 @@ body.dark-mode {
   transform: scale(0.95);
 }
 
-/* ==================== TARJETAS ==================== */
+/* ==================== SEARCH INPUT ==================== */
+.search-input-container {
+  position: relative;
+}
+
+.search-input-container .form-control {
+  padding-right: 50px;
+}
+
+/* ==================== VOICE BUTTON ==================== */
+.voice-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #6c757d;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 1.1rem;
+  z-index: 3;
+}
+
+.voice-btn:hover {
+  color: #495057;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.voice-btn:active {
+  transform: translateY(-50%) scale(0.9);
+}
+
+.voice-btn.listening {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 2px solid rgba(255,255,255,0.3);
+  color: white;
+  width: 48px;
+  height: 48px;
+  right: 4px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: translateY(-50%) scale(1); }
+  50% { transform: translateY(-50%) scale(1.05); }
+  100% { transform: translateY(-50%) scale(1); }
+}
+
+/* ==================== GRID DE VIDEOS ==================== */
 .video-grid {
   display: grid;
   gap: 20px;
   margin-top: 20px;
 }
 
+/* Vista 1 columna (tipo YouTube móvil) */
 .video-grid.cols-1 {
   grid-template-columns: 1fr;
 }
 
+/* Vista 2 columnas en móvil, 3 en tablet+ */
 .video-grid.cols-2 {
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
 }
 
+@media (min-width: 768px) {
+  .video-grid.cols-2 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Vista lista */
 .video-grid.cols-list {
   display: flex;
   flex-direction: column;
@@ -180,6 +245,7 @@ body.dark-mode {
   }
 }
 
+/* ==================== TARJETAS ==================== */
 .card {
   background: white;
   border-radius: 15px;
@@ -321,7 +387,7 @@ body.dark-mode .card-text {
   box-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
 
-/* ==================== MODALES DESDE ABAJO EN MÓVIL ==================== */
+/* ==================== MODALES ==================== */
 @media (max-width: 767.98px) {
   .modal.fade .modal-dialog {
     transform: translate(0, 100%);
@@ -541,19 +607,11 @@ body.dark-mode .modal-content {
   .navbar-brand {
     font-size: 1.2rem;
   }
-  
-  .video-grid.cols-2 {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
 }
 
 @media (max-width: 576px) {
   body {
     padding-bottom: 85px;
-  }
-  
-  .video-grid.cols-2 {
-    grid-template-columns: 1fr;
   }
   
   .card-img-container {
@@ -601,6 +659,13 @@ body.dark-mode .modal-content {
       <button id="toggleView" title="Cambiar vista" aria-label="Cambiar vista">
         <i class="bi bi-grid-3x3-gap-fill" id="viewIcon"></i>
       </button>
+      <div class="dropdown d-none" id="genreDropdown">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+          <i class="bi bi-tag"></i> Género
+        </button>
+        <ul class="dropdown-menu" id="genreMenu">
+        </ul>
+      </div>
       <button id="toggleDark" title="Modo oscuro" aria-label="Modo oscuro">
         <i class="bi bi-moon-stars"></i>
       </button>
@@ -609,7 +674,7 @@ body.dark-mode .modal-content {
 </nav>
 
 <!-- CONTENEDOR PRINCIPAL -->
-<div class="container mt-4">
+<div class="container-fluid">
   <!-- LOADER -->
   <div class="loader" id="loader">
     <div class="spinner"></div>
@@ -656,7 +721,12 @@ body.dark-mode .modal-content {
       </div>
       <div class="modal-body">
         <div class="mb-3">
-          <input id="searchModalInput" class="form-control" type="search" placeholder="Buscar música por título o autor..." aria-label="Buscar">
+          <div class="search-input-container">
+            <input id="searchModalInput" class="form-control" type="search" placeholder="Buscar música por título o artista..." aria-label="Buscar">
+            <button id="voiceBtn" class="voice-btn" type="button" title="Buscar por voz">
+              <i class="bi bi-mic"></i>
+            </button>
+          </div>
         </div>
 
         <!-- FILTROS DENTRO DEL MODAL -->
@@ -667,8 +737,8 @@ body.dark-mode .modal-content {
             </select>
           </div>
           <div class="col-6">
-            <select id="authorFilterModal" class="form-select form-select-sm">
-              <option value="all">Todos los autores</option>
+            <select id="artistFilterModal" class="form-select form-select-sm">
+              <option value="all">Todos los artistas</option>
             </select>
           </div>
         </div>
@@ -762,11 +832,11 @@ function cargarFiltrosModal(videos) {
     genreFilter.append(`<option value="${genero}">${genero}</option>`);
   });
   
-  // Autores
-  const autores = [...new Set(musicVideos.map(v => v.autor).filter(a => a))];
-  const authorFilter = $('#authorFilterModal');
-  autores.forEach(autor => {
-    authorFilter.append(`<option value="${autor}">${autor}</option>`);
+  // Artistas (cambiado de autor a artista)
+  const artistas = [...new Set(musicVideos.map(v => v.artista).filter(a => a))];
+  const artistFilter = $('#artistFilterModal');
+  artistas.forEach(artista => {
+    artistFilter.append(`<option value="${artista}">${artista}</option>`);
   });
 }
 
@@ -800,7 +870,7 @@ function renderizarVideos(videos) {
           </div>
           <div class="card-body">
             <h5 class="card-title">${v.titulo}</h5>
-            <p class="card-text">${v.autor || 'Autor desconocido'}</p>
+            <p class="card-text">${v.artista || 'Artista desconocido'}</p>
             <span class="genre">${v.genero || 'General'}</span>
           </div>
         </div>
@@ -847,7 +917,7 @@ function mostrarOpciones(video) {
         id: video.id,
         titulo: video.titulo,
         thumbnail: video.thumbnail,
-        autor: video.autor,
+        artista: video.artista,
         tipo: 'musica',
         currentTime: currentTime
       };
@@ -973,7 +1043,7 @@ function footerNext(){
       id: nextVideo.id,
       titulo: nextVideo.titulo,
       thumbnail: nextVideo.thumbnail,
-      autor: nextVideo.autor,
+      artista: nextVideo.artista,
       tipo: 'musica',
       currentTime: 0
     };
@@ -996,7 +1066,7 @@ function footerPrev(){
       id: prevVideo.id,
       titulo: prevVideo.titulo,
       thumbnail: prevVideo.thumbnail,
-      autor: prevVideo.autor,
+      artista: prevVideo.artista,
       tipo: 'musica',
       currentTime: 0
     };
@@ -1029,7 +1099,7 @@ function configurarEventos() {
     performModalSearch();
   });
 
-  $('#genreFilterModal, #authorFilterModal').on('change', function() {
+  $('#genreFilterModal, #artistFilterModal').on('change', function() {
     performModalSearch();
   });
 
@@ -1054,13 +1124,85 @@ function configurarEventos() {
       localStorage.setItem('darkMode', 'false');
     }
   });
+
+  // Reconocimiento por voz
+  setupVoiceSearch();
+}
+
+// ======= RECONOCIMIENTO POR VOZ =======
+function setupVoiceSearch() {
+  const voiceBtn = document.getElementById('voiceBtn');
+  if (!voiceBtn) return;
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let recognition;
+  let recognizing = false;
+
+  if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.lang = navigator.language || 'es-ES';
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
+    recognition.continuous = false;
+
+    recognition.onstart = () => {
+      recognizing = true;
+      voiceBtn.classList.add('listening');
+      voiceBtn.title = 'Escuchando...';
+    };
+
+    recognition.onend = () => {
+      recognizing = false;
+      voiceBtn.classList.remove('listening');
+      voiceBtn.title = 'Buscar por voz';
+    };
+
+    recognition.onerror = (evt) => {
+      recognizing = false;
+      voiceBtn.classList.remove('listening');
+      console.warn('Speech recognition error', evt);
+      alert('Error en reconocimiento de voz o permiso denegado');
+    };
+
+    recognition.onresult = (event) => {
+      let interim = '';
+      let finalTranscript = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          finalTranscript += event.results[i][0].transcript;
+        } else {
+          interim += event.results[i][0].transcript;
+        }
+      }
+
+      const input = document.getElementById('searchModalInput');
+      const value = (finalTranscript || interim).trim();
+      input.value = value;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+
+    voiceBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      try {
+        if (recognizing) {
+          recognition.stop();
+        } else {
+          recognition.start();
+        }
+      } catch (e) {
+        console.warn('Speech start/stop error', e);
+      }
+    });
+  } else {
+    voiceBtn.style.display = 'none';
+  }
 }
 
 // ======= FUNCIONES DE BÚSQUEDA MODAL =======
 function performModalSearch(){
   const term = $('#searchModalInput').val().toLowerCase().trim();
   const genreFilter = $('#genreFilterModal').val();
-  const authorFilter = $('#authorFilterModal').val();
+  const artistFilter = $('#artistFilterModal').val();
   
   const resultsContainer = $('#searchResults');
   resultsContainer.empty();
@@ -1073,16 +1215,16 @@ function performModalSearch(){
     musicVideos = musicVideos.filter(v => v.genero === genreFilter);
   }
 
-  // Filtrar por autor
-  if (authorFilter !== 'all') {
-    musicVideos = musicVideos.filter(v => v.autor === authorFilter);
+  // Filtrar por artista
+  if (artistFilter !== 'all') {
+    musicVideos = musicVideos.filter(v => v.artista === artistFilter);
   }
 
   // Filtrar por búsqueda
   if(term) {
     musicVideos = musicVideos.filter(v => {
       return (v.titulo && v.titulo.toLowerCase().includes(term)) || 
-             (v.autor && v.autor.toLowerCase().includes(term)) ||
+             (v.artista && v.artista.toLowerCase().includes(term)) ||
              (v.genero && v.genero.toLowerCase().includes(term));
     });
   }
@@ -1105,7 +1247,7 @@ function renderModalResults(items){
     const top = $(`<div class="d-flex justify-content-between align-items-start">
                     <div>
                       <div style="font-weight:600">${v.titulo}</div>
-                      <small class="text-muted">${v.autor || 'Autor desconocido'} · ${v.genero || ''}</small>
+                      <small class="text-muted">${v.artista || 'Artista desconocido'} · ${v.genero || ''}</small>
                     </div>
                     <span class="badge bg-info">Música</span>
                   </div>`);
@@ -1123,7 +1265,7 @@ function renderModalResults(items){
         id: v.id,
         titulo: v.titulo,
         thumbnail: v.thumbnail,
-        autor: v.autor,
+        artista: v.artista,
         tipo: 'musica',
         currentTime: currentTime
       };
