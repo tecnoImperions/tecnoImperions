@@ -107,45 +107,12 @@
     </div>
   </div>
 
-    <script>
-    function detectarDispositivo() {
-        const width = window.innerWidth;
-        const ua = navigator.userAgent.toLowerCase();
-
-        // 📺 SMART TV
-        if (
-            ua.includes("smart-tv") ||
-            ua.includes("smarttv") ||
-            ua.includes("tizen") ||
-            ua.includes("webos") ||
-            ua.includes("android tv") ||
-            ua.includes("hbbtv")
-        ) {
-            return "/productos/video/TV/index.html";
-        }
-
-        // 📱 CELULAR / TABLET
-        if (
-            ua.includes("mobile") ||
-            ua.includes("android") ||
-            ua.includes("iphone") ||
-            ua.includes("ipad") ||
-            width <= 900
-        ) {
-            return "/productos/video/CEL/index.html";
-        }
-
-        // 💻 PC / LAPTOP (DEFAULT)
-        return "/productos/video/PC/index.html";
-    }
-
+  <script>
     // ⏱️ duración de la intro
     setTimeout(() => {
-        window.location.href = detectarDispositivo();
+      window.location.href = "index.html";
     }, 5500);
-    </script>
-
-
+  </script>
 
 </body>
 </html>
