@@ -28,5 +28,59 @@
     "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766161869/0x1900-000000-80-0-0_rqqt5f.jpg",
     "genero": "Pop",
     "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766170095/Carly_Rae_Jepsen_-_Call_Me_Maybe_HIGH-mc_fepylw.mp3"
+  },
+  {
+    "id": "4",
+    "titulo": "Billie Jean",
+    "descripcion": "Videoclip oficial de uno de los mayores éxitos de Michael Jackson",
+    "artista": "Michael Jackson",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766844899/Michael_Jackson_-_Billie_Jean_Official_Video__High_nqf9bx.mp4",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766845255/1900x1900-000000-80-0-0_1_wq8whc.jpg",
+    "genero": "Pop / Funk",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766846015/Michael_Jackson_-_Billie_Jean_Official_Video__High-mc_xhtfti.mp3"
+  },
+  {
+    "id": "5",
+    "titulo": "The Awakening",
+    "descripcion": "Videoclip oficial de la banda de rock ONLAP",
+    "artista": "ONLAP",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766844908/ONLAP_-_The_Awakening_OFFICIAL_VIDEO_-_COPYRIGHT_FREE_Rock_Song__HD_k5bfur.mp4",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766845250/ab67616d0000b273fda22a9350362f3c856d821c_eabfdr.jpg",
+    "genero": "Rock Alternativo",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766846016/ONLAP_-_The_Awakening_OFFICIAL_VIDEO_-_COPYRIGHT_FREE_Rock_Song__HD-mc_td4dhj.mp3"
+  },
+  {
+    "id": "6",
+    "titulo": "Rasputin",
+    "descripcion": "Presentación en vivo en el Sopot Festival 1979",
+    "artista": "Boney M.",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766844907/Boney_M._-_Rasputin_Sopot_Festival_1979__High_bcu4ji.mp4",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766845250/Boney_M._-_Rasputin__1978_single_j7wwyh.jpg",
+    "genero": "Disco / Euro Disco",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766846015/Boney_M._-_Rasputin_Sopot_Festival_1979__High-mc_bg2fhv.mp3"
+  },
+  {
+    "id": "7",
+    "titulo": "A Little Less Conversation (JXL Remix)",
+    "descripcion": "Remix oficial del clásico de Elvis Presley",
+    "artista": "Elvis Presley & Junkie XL",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766844905/Junkie_XL_Elvis_Presley_-_A_Little_Less_Conversation_Official_JXL_Remix__High_mmailp.mp4",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766845250/descarga_2_yiyif1.jpg",
+    "genero": "Electronic Rock / Dance",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766846015/Junkie_XL_Elvis_Presley_-_A_Little_Less_Conversation_Official_JXL_Remix__High-mc_j0zpru.mp3"
+  },
+  {
+    "id": "8",
+    "titulo": "Boogie Wonderland",
+    "descripcion": "Videoclip oficial del clásico disco-funk",
+    "artista": "Earth, Wind & Fire ft. The Emotions",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766844912/Earth_Wind_Fire_-_Boogie_Wonderland_Official_Video__High_ftlxja.mp4",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766845251/1900x1900-000000-80-0-0_akop48.jpg",
+    "genero": "Disco / Funk",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766846015/Earth_Wind_Fire_-_Boogie_Wonderland_Official_Video__High-mc_lbwkpi.mp3"
   }
+
+
+
+
 ]
