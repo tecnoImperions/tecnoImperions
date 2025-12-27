@@ -337,6 +337,55 @@ body.dark-mode .search-input {
   animation: pulse 1.2s infinite;
 }
 
+/* FILTERS (search modal) */
+.filters-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-select {
+  flex: 1 1 180px;
+  min-width: 140px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+body.dark-mode .filter-select {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #e0e0e0;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102,126,234,0.06);
+}
+
+/* Responsive: mantener filtros en una línea en pantallas pequeñas */
+@media (max-width: 576px) {
+  .filters-row {
+    flex-direction: row;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-select {
+    flex: 0 0 calc(50% - 6px);
+    min-width: 120px;
+  }
+
+  .search-input { padding-right: 44px; }
+}
+
 @keyframes pulse {
   0%, 100% { transform: translateY(-50%) scale(1); }
   50% { transform: translateY(-50%) scale(1.1); }
@@ -848,6 +897,24 @@ body.dark-mode .modal-content {
     height: 45px;
   }
 }
+.navbar-logo {
+  width: 1.25em;      /* tamaño tipo icono Bootstrap */
+  height: 1.25em;
+  object-fit: contain;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-text {
+  font-size: 1.25rem; /* tamaño típico de navbar-brand */
+  font-weight: 500;
+}
+
 </style>
 </head>
 <body>
@@ -894,8 +961,14 @@ body.dark-mode .modal-content {
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
+
     <a class="navbar-brand" href="#">
-      <i class="bi bi-music-note-beamed"></i> Varian Music
+      <img 
+        src="https://res.cloudinary.com/duwvw6q2c/image/upload/v1766862129/image-removebg-preview_3_pnmzoh.png"
+        alt="Varian Logo"
+        class="navbar-logo"
+      >
+      <span class="brand-text">Varian</span>
     </a>
 
     <div class="navbar-icons">
@@ -909,6 +982,7 @@ body.dark-mode .modal-content {
         <i class="bi bi-three-dots-vertical"></i>
       </button>
     </div>
+
   </div>
 </nav>
 
