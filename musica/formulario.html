@@ -3,43 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Generador de JSON Musical Mejorado</title>
+  <title>Panel Avanzado JSON Música</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-
 <body class="bg-light">
 
 <div class="container py-4">
   <h2 class="text-center mb-4">
-    <i class="bi bi-music-note-list"></i> Formulario JSON de Música
+    <i class="bi bi-music-note-list"></i> Panel Avanzado JSON Música
   </h2>
 
   <!-- FORMULARIO -->
   <div class="card shadow-sm mb-4">
     <div class="card-body">
       <form id="musicForm">
+        <input type="hidden" id="editIndex"> <!-- Para edición -->
 
         <div class="row g-3">
-          <div class="col-md-6">
+          <div class="col-md-2">
             <label class="form-label">ID</label>
             <input type="number" class="form-control" id="id" required>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-5">
             <label class="form-label">Título</label>
             <input type="text" class="form-control" id="titulo" required>
           </div>
 
-          <div class="col-md-12">
-            <label class="form-label">Descripción</label>
-            <input type="text" class="form-control" id="descripcion">
-          </div>
-
-          <div class="col-md-6">
+          <div class="col-md-5">
             <label class="form-label">Artista</label>
             <input type="text" class="form-control" id="artista">
           </div>
@@ -49,24 +43,29 @@
             <input type="text" class="form-control" id="genero">
           </div>
 
-          <div class="col-md-12">
-            <label class="form-label">URL Video (mp4)</label>
+          <div class="col-md-6">
+            <label class="form-label">URL Video</label>
             <input type="url" class="form-control" id="url">
           </div>
 
-          <div class="col-md-12">
-            <label class="form-label">Thumbnail (imagen)</label>
+          <div class="col-md-6">
+            <label class="form-label">Thumbnail</label>
             <input type="url" class="form-control" id="thumbnail">
           </div>
 
-          <div class="col-md-12">
-            <label class="form-label">URL Música (mp3)</label>
+          <div class="col-md-6">
+            <label class="form-label">URL Música</label>
             <input type="url" class="form-control" id="musicas">
+          </div>
+
+          <div class="col-md-12">
+            <label class="form-label">Descripción</label>
+            <input type="text" class="form-control" id="descripcion">
           </div>
         </div>
 
-        <div class="d-grid mt-4">
-          <button type="submit" class="btn btn-primary">
+        <div class="d-grid mt-3">
+          <button type="submit" class="btn btn-primary" id="submitBtn">
             <i class="bi bi-plus-circle"></i> Agregar al JSON
           </button>
         </div>
@@ -74,13 +73,32 @@
     </div>
   </div>
 
-  <!-- RESULTADO JSON -->
-  <div class="card shadow-sm">
+  <!-- TABLA DE DATOS -->
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <h5><i class="bi bi-table"></i> Lista de Registros</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped" id="tablaDatos">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Título</th>
+              <th>Artista</th>
+              <th>Género</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- JSON FINAL -->
+  <div class="card shadow-sm mb-4">
     <div class="card-body">
       <h5><i class="bi bi-code-slash"></i> JSON generado</h5>
-
       <pre class="bg-dark text-light p-3 rounded" id="jsonOutput">[]</pre>
-
       <button class="btn btn-success mt-2" onclick="copiarJSON()">
         <i class="bi bi-clipboard"></i> Copiar JSON
       </button>
@@ -91,41 +109,67 @@
 <script>
   let data = [];
 
-  // Función para cargar un archivo JSON existente
+  // Cargar JSON existente
   async function cargarJSON() {
     try {
-      const response = await fetch('video.json'); // tu archivo JSON en GitHub Pages
+      const response = await fetch('video.json');
       if (!response.ok) throw new Error("JSON no encontrado o vacío");
       const jsonData = await response.json();
-
       if (Array.isArray(jsonData)) {
         data = jsonData;
-        // Ordenar por id ascendente si ya hay datos
-        data.sort((a, b) => Number(a.id) - Number(b.id));
-        actualizarSalida();
-      } else {
-        data = [];
+        ordenarYActualizar();
       }
     } catch (err) {
       console.log("JSON vacío o no existe, comenzando con array vacío");
       data = [];
-      actualizarSalida();
+      actualizarTabla();
     }
   }
 
-  // Llamar al cargar la página
   window.onload = cargarJSON;
 
-  // Función para actualizar el JSON mostrado
+  // Función para actualizar tabla
+  function actualizarTabla() {
+    const tbody = document.querySelector("#tablaDatos tbody");
+    tbody.innerHTML = "";
+    data.forEach((item, index) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${item.id}</td>
+        <td>${item.titulo}</td>
+        <td>${item.artista}</td>
+        <td>${item.genero}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-1" onclick="editarRegistro(${index})">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-sm btn-danger" onclick="borrarRegistro(${index})">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+    actualizarSalida();
+  }
+
+  // Actualizar JSON en pantalla
   function actualizarSalida() {
     document.getElementById("jsonOutput").textContent = JSON.stringify(data, null, 2);
   }
 
-  // Agregar nuevo registro
+  // Ordenar por ID
+  function ordenarYActualizar() {
+    data.sort((a, b) => Number(a.id) - Number(b.id));
+    actualizarTabla();
+  }
+
+  // Agregar o editar registro
   document.getElementById("musicForm").addEventListener("submit", function(e) {
     e.preventDefault();
+    const index = document.getElementById("editIndex").value;
 
-    const nuevo = {
+    const registro = {
       id: document.getElementById("id").value,
       titulo: document.getElementById("titulo").value,
       descripcion: document.getElementById("descripcion").value,
@@ -136,20 +180,48 @@
       musicas: document.getElementById("musicas").value
     };
 
-    data.push(nuevo);
+    if (index === "") {
+      data.push(registro);
+    } else {
+      data[index] = registro; // Actualizar registro
+      document.getElementById("editIndex").value = "";
+      document.getElementById("submitBtn").innerHTML = '<i class="bi bi-plus-circle"></i> Agregar al JSON';
+    }
 
-    // Mantener orden por id
-    data.sort((a, b) => Number(a.id) - Number(b.id));
-
-    actualizarSalida();
+    ordenarYActualizar();
     this.reset();
   });
+
+  // Editar
+  function editarRegistro(index) {
+    const item = data[index];
+    document.getElementById("id").value = item.id;
+    document.getElementById("titulo").value = item.titulo;
+    document.getElementById("descripcion").value = item.descripcion;
+    document.getElementById("artista").value = item.artista;
+    document.getElementById("url").value = item.url;
+    document.getElementById("thumbnail").value = item.thumbnail;
+    document.getElementById("genero").value = item.genero;
+    document.getElementById("musicas").value = item.musicas;
+
+    document.getElementById("editIndex").value = index;
+    document.getElementById("submitBtn").innerHTML = '<i class="bi bi-save"></i> Guardar Cambios';
+  }
+
+  // Borrar
+  function borrarRegistro(index) {
+    if (confirm("¿Deseas eliminar este registro?")) {
+      data.splice(index, 1);
+      ordenarYActualizar();
+    }
+  }
 
   // Copiar JSON
   function copiarJSON() {
     navigator.clipboard.writeText(document.getElementById("jsonOutput").textContent);
     alert("JSON copiado correctamente");
   }
+
 </script>
 
 </body>
