@@ -78,6 +78,66 @@
     "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766845251/1900x1900-000000-80-0-0_akop48.jpg",
     "genero": "Disco / Funk",
     "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766846015/Earth_Wind_Fire_-_Boogie_Wonderland_Official_Video__High-mc_lbwkpi.mp3"
+  },
+{
+    "id": "9",
+    "titulo": "Pump It",
+    "descripcion": "Videoclip oficial de Pump It, inspirado en Misirlou",
+    "artista": "The Black Eyed Peas",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766847058/The_Black_Eyed_Peas_-_Pump_It_Official_Music_Video__HD_pkkeqk.mp4",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766845250/ab67616d0000b273fda22a9350362f3c856d821c_eabfdr.jpg",
+    "genero": "Hip Hop / Pop",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766847058/The_Black_Eyed_Peas_-_Pump_It_Official_Music_Video__HD_pkkeqk-mc.mp3"
+  },
+  {
+    "id": "10",
+    "titulo": "Let's Get It Started",
+    "descripcion": "Videoclip oficial del éxito de los 2000s",
+    "artista": "The Black Eyed Peas",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766847074/The_Black_Eyed_Peas_-_Let_s_Get_It_Started_HD_xlrqay.mp4",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766845250/ab67616d0000b273fda22a9350362f3c856d821c_eabfdr.jpg",
+    "genero": "Hip Hop / Pop",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766847074/The_Black_Eyed_Peas_-_Let_s_Get_It_Started_HD_xlrqay-mc.mp3"
+  },
+  {
+    "id": "11",
+    "titulo": "I Gotta Feeling",
+    "descripcion": "Videoclip oficial de uno de los himnos de fiesta más grandes",
+    "artista": "The Black Eyed Peas",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766847076/The_Black_Eyed_Peas_-_I_Gotta_Feeling_Official_Music_Video__HD_s3nji6.mp4",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766845250/ab67616d0000b273fda22a9350362f3c856d821c_eabfdr.jpg",
+    "genero": "Dance Pop",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766847076/The_Black_Eyed_Peas_-_I_Gotta_Feeling_Official_Music_Video__HD_s3nji6-mc.mp3"
+  },
+  {
+    "id": "12",
+    "titulo": "Rock That Body",
+    "descripcion": "Videoclip oficial de Rock That Body del álbum The E.N.D.",
+    "artista": "The Black Eyed Peas",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766847076/The_Black_Eyed_Peas_-_Rock_That_Body_Official_Music_Video__HD_tv4ncn.mp4",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766845250/ab67616d0000b273fda22a9350362f3c856d821c_eabfdr.jpg",
+    "genero": "Electro / Pop",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766847076/The_Black_Eyed_Peas_-_Rock_That_Body_Official_Music_Video__HD_tv4ncn-mc.mp3"
+  },
+  {
+    "id": "13",
+    "titulo": "Shut Up",
+    "descripcion": "Videoclip oficial de Shut Up",
+    "artista": "The Black Eyed Peas",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766847075/The_Black_Eyed_Peas_-_Shut_Up_HD_vr2n7f.mp4",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766845250/ab67616d0000b273fda22a9350362f3c856d821c_eabfdr.jpg",
+    "genero": "Hip Hop",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766847075/The_Black_Eyed_Peas_-_Shut_Up_HD_vr2n7f-mc.mp3"
+  },
+  {
+    "id": "14",
+    "titulo": "Hey Mama",
+    "descripcion": "Videoclip oficial de Hey Mama",
+    "artista": "The Black Eyed Peas",
+    "url": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766851254/The_Black_Eyed_Peas_-_Hey_Mama_HD_a683os.mp4",
+    "thumbnail": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1766845250/ab67616d0000b273fda22a9350362f3c856d821c_eabfdr.jpg",
+    "genero": "Dancehall / Hip Hop",
+    "musicas": "https://res.cloudinary.com/duwvw6q2c/video/upload/v1766851254/The_Black_Eyed_Peas_-_Hey_Mama_HD_a683os-mc.mp3"
   }
 
 
