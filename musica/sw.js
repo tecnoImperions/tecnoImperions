@@ -1,4 +1,4 @@
-const CACHE_NAME = 'varian-pwa-v2'; // Versión 2 para forzar refresco
+const CACHE_NAME = 'varian-pwa-v3'; // Versión 3
 
 const urlsToCache = [
   './',
@@ -15,7 +15,7 @@ const urlsToCache = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log('Cache v2 de Varian iniciado');
+      console.log('Cache v3 de Varian iniciado');
       return cache.addAll(urlsToCache);
     })
   );
@@ -27,6 +27,7 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheName !== CACHE_NAME) {
+            console.log('Eliminando cache antiguo:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -36,7 +37,6 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  // Estrategia especial para video.json: Red primero, luego Caché
   if (event.request.url.includes('video.json')) {
     event.respondWith(
       fetch(event.request)
@@ -48,11 +48,9 @@ self.addEventListener('fetch', event => {
         .catch(() => caches.match(event.request))
     );
   } else {
-    // Para lo demás: Caché primero, luego Red
     event.respondWith(
       caches.match(event.request).then(response => {
         return response || fetch(event.request).then(fetchRes => {
-          // No cachear videos pesados automáticamente
           if (!event.request.url.includes('video/upload')) {
             return caches.open(CACHE_NAME).then(cache => {
               cache.put(event.request, fetchRes.clone());
