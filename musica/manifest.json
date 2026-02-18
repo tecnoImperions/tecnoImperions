@@ -1,12 +1,13 @@
 {
-  "name": "Varian PWA Music",
+  "name": "Varian Music",
   "short_name": "Varian",
   "description": "Tu reproductor de música favorito",
-  "start_url": "index.html",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#0f0f1a",
   "theme_color": "#0f0f1a",
-  "orientation": "portrait",
   "icons": [
     {
       "src": "https://res.cloudinary.com/duwvw6q2c/image/upload/v1765742101/varian_lbd26r.webp",
